@@ -1,20 +1,30 @@
 const User = require('./User');
 const Event = require('./Event')
-const Project = require('./Project');
+const Category = require('./Category')
 
-User.hasMany(Event, {
-  foreignKey: 'user_id',
-  onDelete: 'CASCADE'
+
+User.belongsToMany(Event, {
+  through: {
+    model: 'bookedEvent',
+    unique: false
+  },
 });
 
-Event.belongsTo(User, {
-  foreignKey: 'user_id',
-  onDelete: 'SET NULL'
+Event.belongsToMany(User, {
+  // Define the third table needed to store the foreign keys
+  through: {
+    model: 'bookedEvent',
+    unique: false
+  },
 })
 
-Event.hasMany(User, {
-  foreignKey: 'user_id',
-  onDelete: 'SET NULL'
-});
+Category.hasMany(Event, {
+  foreignKey: 'category_id'
+})
 
-module.exports = { User, Project };
+Event.hasOne(Category, {
+  foreignKey: 'category_id',
+})
+
+
+module.exports = { User, Event, Category };
