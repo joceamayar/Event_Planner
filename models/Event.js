@@ -21,7 +21,7 @@ Event.init(
             allowNull: false,
         },
         event_date_time: {
-            type: DataTypes.DATETIME,
+            type: DataTypes.DATE,
             allowNull: false,
             validate: {
                 isDate: true,

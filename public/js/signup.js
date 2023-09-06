@@ -10,10 +10,10 @@ const signupFormHandler = async (event) => {
     if (firstName && lastName && username && email && password) {
       const response = await fetch('/api/users/signup', {
         method: 'POST',
-        body: JSON.stringify({ firstName, lastName, username, email, password }),
+        body: JSON.stringify({firstName,lastName, username, email, password }),
         headers: { 'Content-Type': 'application/json' },
       });
-  
+
       if (response.ok) {
         document.location.replace('/profile');
       } else {
