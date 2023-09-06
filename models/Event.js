@@ -21,7 +21,7 @@ Event.init(
             allowNull: false,
         },
         event_date_time: {
-            type: DataTypes.DATETIME,
+            type: DataTypes.DATE,
             allowNull: false,
             validate: {
                 isDate: true,
@@ -36,14 +36,14 @@ Event.init(
             references: {
                 model: 'user',
                 key: 'id',
-              },
+            },
         },
         category_id: {
             type: DataTypes.INTEGER,
             references: {
                 model: 'category',
                 key: 'id',
-              },
+            },
         }
     },
 
