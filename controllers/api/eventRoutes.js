@@ -1,17 +1,38 @@
 const router = require('express').Router();
-const withAuth = require('../../utils/auth');
+const apiKey = "ooGU8uX0cAG4SM9WQPPlO5iFhuOfdLN2";
 
-router.get('/:organizationId', withAuth, async (req, res) => {
+router.get('/',  async (req, res) => {
+  // {
+  //   "classification": "123456",
+  //   "zip_code": "01679",
+  //   "start_time": "2023-09-15",
+  // }
+
   try {
-    const orgId = req.params.organizationId
+    let classification = req.query.classification;
+    let zip_code = req.query.zip_code;
+    let start_time = req.query.start_time;
 
-    let response = await fetch(`https://www.eventbriteapi.com/v3/organizations/${orgId}/events/`, {
-      method: 'GET',
-      headers: { 'Authorization': 'Bearer BP2HM4RTONDYI7FXNUOI' }
+    let url = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}`;
+
+    if (classification) {
+      url += `&classificationId=${classification}`;
+    }
+
+    if (zip_code) {
+      url += `&postalCode=${zip_code}`;
+    }
+
+    if (start_time) {
+      url += `&localStartDateTime=${start_time}`;
+    }
+
+    let response = await fetch(url, {
+      method: 'GET'
     });
 
     let data = await response.json()
-    let events = data.events;
+    let events = data._embedded.events;
     console.log(events)
 
     res.status(200).json(events);

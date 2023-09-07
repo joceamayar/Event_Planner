@@ -2,10 +2,10 @@ const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
 // create our Trip model
-class BookedEvent extends Model {}
+class SavedEvent extends Model { }
 
 // create fields/columns for Trip model
-BookedEvent.init(
+SavedEvent.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -35,7 +35,7 @@ BookedEvent.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'bookedEvent'
+    modelName: 'savedEvent'
   }
 );
 

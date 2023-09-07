@@ -1,8 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Event extends Model {
-}
+class Event extends Model { }
 
 Event.init(
     {
@@ -12,24 +11,47 @@ Event.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        event_name: {
+        ticketmaster_id: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        ticketmaster_url: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        imageUrl: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        name: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        event_description: {
+        description: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
-        event_date_time: {
+        start_date_time: {
             type: DataTypes.DATE,
             allowNull: false,
             validate: {
                 isDate: true,
             }
         },
-        event_location: {
+        end_date_time: {
+            type: DataTypes.DATE,
+            allowNull: true,
+            validate: {
+                isDate: true,
+            }
+        },
+        zip_code: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
+        },
+        address: {
+            type: DataTypes.STRING,
+            allowNull: true,
         },
         user_id: {
             type: DataTypes.INTEGER,
@@ -38,16 +60,14 @@ Event.init(
                 key: 'id',
             },
         },
-        category_id: {
+        classification_id: {
             type: DataTypes.INTEGER,
             references: {
-                model: 'category',
+                model: 'classification',
                 key: 'id',
             },
         }
     },
-
-
     {
         sequelize,
         timestamps: false,

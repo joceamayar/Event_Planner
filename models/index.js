@@ -1,11 +1,10 @@
 const User = require('./User');
 const Event = require('./Event')
-const Category = require('./Category')
+const Classification = require('./Classification')
 
-
-User.belongsToMany(Event, {
+User.hasMany(Event, {
   through: {
-    model: 'bookedEvent',
+    model: 'savedEvent',
     unique: false
   },
 });
@@ -13,17 +12,17 @@ User.belongsToMany(Event, {
 Event.belongsToMany(User, {
   // Define the third table needed to store the foreign keys
   through: {
-    model: 'bookedEvent',
+    model: 'savedEvent',
     unique: false
   },
 })
 
-Category.hasMany(Event, {
-  foreignKey: 'category_id'
+Classification.hasMany(Event, {
+  foreignKey: 'classification_id'
 })
 
-Event.hasOne(Category, {
-  foreignKey: 'category_id',
+Event.hasOne(Classification, {
+  foreignKey: 'classification_id',
 })
 
 
