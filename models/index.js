@@ -2,7 +2,7 @@ const User = require('./User');
 const Event = require('./Event')
 const Classification = require('./Classification')
 
-User.hasMany(Event, {
+User.belongsToMany(Event, {
   through: {
     model: 'savedEvent',
     unique: false
@@ -21,9 +21,9 @@ Classification.hasMany(Event, {
   foreignKey: 'classification_id'
 })
 
-Event.hasOne(Classification, {
+Event.belongsTo(Classification, {
   foreignKey: 'classification_id',
 })
 
 
-module.exports = { User, Event, Category };
+module.exports = { User, Event, Classification };
