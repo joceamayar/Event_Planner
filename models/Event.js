@@ -53,11 +53,18 @@ Event.init(
             type: DataTypes.STRING,
             allowNull: true,
         },
+        city:{
+            type: DataTypes.STRING,
+        },
+        state: {
+            type: DataTypes.STRING,
+        },
         user_id: {
             type: DataTypes.INTEGER,
             references: {
                 model: 'user',
                 key: 'id',
+                unique: false
             },
         },
         classification_id: {
@@ -65,6 +72,7 @@ Event.init(
             references: {
                 model: 'classification',
                 key: 'id',
+                unique: false
             },
         }
     },
