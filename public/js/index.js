@@ -17,16 +17,3 @@ let fetchOnPageLoad = async () =>{
 }
 
 fetchOnPageLoad();
-
-let loginPageLoad = async () =>{
-    console.log('this clicked work')
-    let response = await fetch('/login',{
-        method: 'GET'
-    })
-}
-
-let loginButton = document.getElementById('login')
-
-loginButton.addEventListener('click', loginPageLoad)
-
-
