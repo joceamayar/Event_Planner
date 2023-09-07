@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Project, User } = require('../models');
+const { Project, User, Classification, User} = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
@@ -64,5 +64,14 @@ router.get('/signup', (req, res) => {
 
   res.render('signup');
 });
+
+router.get('/eventpage', async (req, res) =>{
+    let eventInfo = await Event.findAll({
+      include:[{model: Classification}]
+    })
+
+
+  res.render('eventpage', {eventInfo})
+})
 
 module.exports = router;
