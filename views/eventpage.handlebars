@@ -11,9 +11,9 @@
       <img src='https://images.unsplash.com/photo-1664199075574-3952ed797d94?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0OTkxMDZ8MHwxfGFsbHx8fHx8fHx8fDE2OTQxMjA0MjZ8&ixlib=rb-4.0.3&q=80&w=400' alt="a large building with a fountain in front of it with National Centre for the Performing Arts in the background">
 
       <div>
-        <h3>Event Title</h3>
-        <h3>Date</h3>
-        <h4>Venue, City, State</h4>
+        <h3>{{name}}</h3>
+        <h3>{{date}}</h3>
+        <h4>Venue, {{address}}, {{city}},{{state}}</h4>
         </div>
     </div>
   
@@ -26,7 +26,8 @@
     </h3>
         <p>Details Here</p>
         <br>
-    <h4>Event Description</h4>
+    <h4>Event Description:</h4>
+    <p>{{description}}</p>
     <h5>
         Ticket Information: 
     </h5>
@@ -34,7 +35,7 @@
     <br>
 
     <img src="https://maps.ticketmaster.com/maps/geometry/3/event/2D005F1CA12722F2/staticImage?type=png&systemId=HOST" alt="Seat Map">
-    <p> For ticket availability visit Ticket Master</p>
+    <p> For ticket availability visit Ticket Master: <a href='{{url}}'>Click Here</a></p>
 </div>
 
 
