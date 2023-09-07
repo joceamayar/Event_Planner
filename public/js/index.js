@@ -1,7 +1,32 @@
 let fetchOnPageLoad = async () =>{
-    let response = await fetch('/',{
+    try {
+        const response = await fetch('/',{
+            method: 'GET'
+        })
+
+        if (response.ok) {
+            // If successful, redirect the browser to the profile page
+            return;
+          } else {
+            alert(response.statusText);
+          }
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+fetchOnPageLoad();
+
+let loginPageLoad = async () =>{
+    console.log('this clicked work')
+    let response = await fetch('/login',{
         method: 'GET'
     })
-
 }
-fetchOnPageLoad();
+
+let loginButton = document.getElementById('login')
+
+loginButton.addEventListener('click', loginPageLoad)
+
+
