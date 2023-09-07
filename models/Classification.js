@@ -1,10 +1,9 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Category extends Model {
-}
+class Classification extends Model { }
 
-Category.init(
+Classification.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -12,20 +11,22 @@ Category.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        category_name: {
+        ticketmaster_classification_id: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-    
+        classification_name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
     },
-
     {
         sequelize,
         timestamps: false,
         freezeTableName: true,
         underscored: true,
-        modelName: 'category',
+        modelName: 'classification',
     }
 );
 
-module.exports = Category;
+module.exports = Classification;
