@@ -39,4 +39,4 @@ SavedEvent.init(
   }
 );
 
-module.exports = BookedEvent;
+module.exports = SavedEvent;
