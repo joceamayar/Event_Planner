@@ -53,6 +53,12 @@ Event.init(
             type: DataTypes.STRING,
             allowNull: true,
         },
+        city:{
+            type: DataTypes.STRING,
+        },
+        state: {
+            type: DataTypes.STRING,
+        },
         user_id: {
             type: DataTypes.INTEGER,
             references: {
