@@ -64,6 +64,7 @@ Event.init(
             references: {
                 model: 'user',
                 key: 'id',
+                unique: false
             },
         },
         classification_id: {
@@ -71,6 +72,7 @@ Event.init(
             references: {
                 model: 'classification',
                 key: 'id',
+                unique: false
             },
         }
     },
