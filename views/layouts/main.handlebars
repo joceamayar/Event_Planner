@@ -31,8 +31,11 @@
           class="flex flex-wrap items-center justify-center pl-6 ml-6 text-base border-l border-gray-200 md:mr-auto"
         >
           <a href="#_" class="mr-5 font-medium hover:text-gray-900">Home</a>
-          <a href="#_" class="mr-5 font-medium hover:text-gray-900">About</a>
-          <a href="#_" class="font-medium hover:text-gray-900">Contact</a>
+          <a
+            href="#_"
+            class="mr-5 font-medium hover:text-gray-900"
+          >Categories</a>
+          <a href="#_" class="font-medium hover:text-gray-900">Events</a>
         </nav>
         <div class="items-center h-full">
           <a href="#_" class="mr-5 font-medium hover:text-gray-900">Login</a>
@@ -45,130 +48,6 @@
         </div>
       </div>
     </header>
-
-    <div class="bg-gray-50 p-3">
-      <section
-        class="w-full bg-cover bg-center py-32"
-        style="background-image: url('https://source.unsplash.com/random');"
-      >
-        <div class="container mx-auto text-center text-white">
-          <h1 class="text-5xl font-medium mb-6">Welcome to EventPulse!</h1>
-          <p class="text-xl mb-12">Get started by selecting your category below
-            to find events.</p>
-          <a
-            href="#"
-            class="bg-indigo-500 text-white py-4 px-12 rounded-full hover:bg-indigo-600"
-          >Demo</a>
-        </div>
-      </section>
-    </div>
-
-    <div>{{{body}}}</div>
-
-    <!-- Categories -->
-    <div
-      class="flex flex-col md:flex-row space-x-0 md:space-x-8 space-y-12 md:space-y-0 justify-center items-center mt-10"
-    >
-      <div class="bg-[#FFFBEC] rounded-xl">
-        <div
-          class="flex flex-col p-8 rounded-xl bg-white shadow-xl translate-x-4 translate-y-4 w-96 md:w-auto"
-        >
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Ice_logo.svg/138px-Ice_logo.svg.png?20191213230535"
-            class="w-8"
-          />
-          <div class="mt-3 font-semibold text-lg">Ice Mobile 10GB</div>
-          <div class="text-sm font-light">Up to 100Mbit/s</div>
-          <div class="my-4">
-            <span class="font-bold text-base">299,-</span>
-            <span class="font-light text-sm">/month</span>
-          </div>
-
-          <button
-            class="bg-[#F4F5FA] px-4 py-3 rounded-full border border-[#F0F0F6] shadow-xl mt-4"
-          >
-            Add subscription
-          </button>
-        </div>
-      </div>
-
-      <div class="bg-[#F9ECFF] rounded-xl">
-        <div
-          class="flex flex-col p-8 rounded-xl bg-white shadow-xl translate-x-4 translate-y-4 w-96 md:w-auto"
-        >
-          <img
-            src="https://www.dstny.se/app/uploads/telia_pp_rgb.png.webp"
-            class="w-12"
-          />
-          <div class="mt-3 font-semibold text-lg">Telia Mobil 15GB</div>
-          <div class="text-sm font-light w-60 md:w-auto">Unlimited calls</div>
-          <div class="my-4">
-            <span class="font-bold text-base">953,-</span>
-            <span class="font-light text-sm">/month</span>
-          </div>
-
-          <button
-            class="bg-[#F4F5FA] px-4 py-3 rounded-full border border-[#F0F0F6] shadow-xl mt-4"
-          >
-            Add subscription
-          </button>
-        </div>
-      </div>
-
-      <div class="bg-[#ECEEFF] rounded-xl">
-        <div
-          class="flex flex-col p-8 rounded-xl bg-white shadow-xl translate-x-4 translate-y-4 w-96 md:w-auto"
-        >
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Telenor_Logo.svg/1600px-Telenor_Logo.svg.png"
-            class="w-12"
-          />
-          <div class="mt-3 font-semibold text-lg">Telenor Next Fast</div>
-          <div class="text-sm font-light w-60 md:w-auto">Up to 100Mbit/s</div>
-          <div class="my-4">
-            <span class="font-bold text-base">1028,-</span>
-            <span class="font-light text-sm">/month</span>
-          </div>
-
-          <button
-            class="bg-[#F4F5FA] px-4 py-3 rounded-full border border-[#F0F0F6] shadow-xl mt-4"
-          >
-            Add subscription
-          </button>
-        </div>
-      </div>
-    </div>
-
-    {{!-- <div class="flex-column justify-space-around">
-      <header class="display-flex justify-space-between align-center p-2">
-        <h1>
-          <span role="img" aria-label="money">💸</span>
-          <a href="/">Fund My Project!</a>
-        </h1>
-        <nav>
-          <!-- Conditionally render login or logout links -->
-          {{#if logged_in}}
-            <a href="/profile">profile</a>
-            |
-            <button class="no-button" id="logout">logout</button>
-          {{else}}
-            <a href="/login">login</a>
-          {{/if}}
-        </nav>
-      </header>
-      <main class="container container-fluid mt-5">
-        <!-- Render the sub layout -->
-        {{{body}}}
-      </main>
-      <footer>
-
-      </footer>
-    </div> --}}
-
-    <!-- Render script for logged in users only -->
-    {{!-- {{#if logged_in}}
-      <script src="/js/logout.js"></script>
-    {{/if}} --}}
   </body>
 
 </html>
