@@ -1,13 +1,40 @@
 const router = require('express').Router();
-const apiKey = "ooGU8uX0cAG4SM9WQPPlO5iFhuOfdLN2";
+// const apiKey = "ooGU8uX0cAG4SM9WQPPlO5iFhuOfdLN2";
+// const { Project, User } = require('../models');
 
-router.get('/',  async (req, res) => {
+
+// this file is for the api/events routes that will get fetched from the public *.js file
+// == every route in here interatcting with database for the events table
+// get all events for a user
+// /api/events/
+router.get('/', async (req, res) => {
+  try {
+
+    const eventsData = await Event.findAll({
+      where: {
+        user_id: req.session.user_id
+      }
+    });
+
+
+    console.log(eventsData)
+    res.status(200).json(eventsData);
+
+  } catch (err) {
+    console.log(err)
+    res.status(400).json(err);
+  }
+});
+
+// router.get('/', async (req, res) => {
   // {
   //   "classification": "123456",
   //   "zip_code": "01679",
   //   "start_time": "2023-09-15",
   // }
-
+  // database stuff
+  // find in events table all events where user_id: req.session.user_id
+/*
   try {
     let classification = req.query.classification;
     let zip_code = req.query.zip_code;
@@ -40,5 +67,7 @@ router.get('/',  async (req, res) => {
     res.status(400).json(err);
   }
 });
+
+*/
 
 module.exports = router;
