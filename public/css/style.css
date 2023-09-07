@@ -1,0 +1,46 @@
+.row {
+  padding: 35px;
+}
+
+.row h1 {
+  font-size: 40px;
+}
+
+#signUpText {
+  font-size: 40px;
+  text-align: center;
+}
+
+#signUpDescription {
+  font-size: 20px;
+  text-align: center;
+}
+
+.signupcontainer {
+  background-color: #60a5fa;
+  width: 80%;
+  margin: auto;
+  margin-top: 60px;
+  border-radius: 8px;
+  box-shadow: 10px 10px 10px lightgrey;
+}
+
+.btn.btn-primary {
+  padding-bottom: 10px;
+  margin: 14px;
+}
+
+#loginContainer {
+  background-color: #60a5fa;
+  border-radius: 8px;
+  box-shadow: 10px 10px 10px lightgrey;
+}
+
+#loginText {
+  text-align: center;
+}
+
+#loginInstructions {
+  text-align: center;
+  font-size: 20px;
+}
