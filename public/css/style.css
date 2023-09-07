@@ -17,12 +17,12 @@
 }
 
 .signupcontainer {
-  background-color: #60a5fa;
+  background-color: lightgrey;
   width: 80%;
   margin: auto;
   margin-top: 60px;
   border-radius: 8px;
-  box-shadow: 10px 10px 10px lightgrey;
+  box-shadow: 10px 10px 10px rgb(120, 115, 115);
 }
 
 .btn.btn-primary {
@@ -31,9 +31,9 @@
 }
 
 #loginContainer {
-  background-color: #60a5fa;
+  background-color: lightgrey;
   border-radius: 8px;
-  box-shadow: 10px 10px 10px lightgrey;
+  box-shadow: 10px 10px 10px rgb(120, 115, 115);
 }
 
 #loginText {
