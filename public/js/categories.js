@@ -1,0 +1,1 @@
+let categories = document.getElementById('');
