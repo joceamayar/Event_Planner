@@ -1,6 +1,7 @@
 const router = require('express').Router();
-const { User, Classification } = require('../models');
+const { Project, User, Classification, Event } = require('../models');
 const withAuth = require('../utils/auth');
+const dayjs = require('dayjs')
 
 router.get('/', async (req, res) => {
   //find classifications 
@@ -66,5 +67,27 @@ router.get('/signup', (req, res) => {
 
   res.render('signup');
 });
+
+//Getting event information based on the event ID that comes from what event is clicked//
+router.get('/eventpage/:id', async (req, res) => {
+  try {
+    const eventData = await Event.findByPk(req.params.id, {
+      include: [{ model: Classification }]
+    })
+
+    const eventInfo = eventData.get({ plain: true });
+
+    res.render('eventpage', {
+      ...eventInfo,
+      date: dayjs(eventInfo.start_date_time).format('MM/DD/YYYY'),
+      logged_in: req.session.logged_in
+    })
+    console.log(eventInfo)
+  }
+  catch (error) {
+    console.error('Error fetching event data:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+})
 
 module.exports = router;

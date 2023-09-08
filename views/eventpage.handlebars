@@ -1,0 +1,44 @@
+<header>
+    {{!-- Classification Title - Need to add when clicked it takes you back to the category handlebar--}}
+     <section id="classification-title-section"
+    class="w-full bg-cover bg-center py-32"
+    style="background-image: url('https://source.unsplash.com/photos/lOGJiIlZFBI');"
+  >
+    <div class="container mx-auto text-center text-white">
+      <h1 id='classification-title' class="text-5xl font-medium mb-6">Theater and Arts</h1>
+      </section>
+      {{!-- Image URL of the event --}}
+      <img src='https://images.unsplash.com/photo-1664199075574-3952ed797d94?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0OTkxMDZ8MHwxfGFsbHx8fHx8fHx8fDE2OTQxMjA0MjZ8&ixlib=rb-4.0.3&q=80&w=400' alt="a large building with a fountain in front of it with National Centre for the Performing Arts in the background">
+
+      <div>
+        <h3>{{name}}</h3>
+        <h3>{{date}}</h3>
+        <h4>Venue, {{address}}, {{city}},{{state}}</h4>
+        </div>
+    </div>
+  
+</header>
+
+<div>
+    <br>
+    <h3>
+    Event Details:
+    </h3>
+        <p>Details Here</p>
+        <br>
+    <h4>Event Description:</h4>
+    <p>{{description}}</p>
+    <h5>
+        Ticket Information: 
+    </h5>
+    <p>Price Ranges: Min - Max</p>
+    <br>
+
+    <img src="https://maps.ticketmaster.com/maps/geometry/3/event/2D005F1CA12722F2/staticImage?type=png&systemId=HOST" alt="Seat Map">
+    <p> For ticket availability visit Ticket Master: <a href='{{url}}'>Click Here</a></p>
+</div>
+
+
+
+
+<script src="/js/eventpage.js"></script>
