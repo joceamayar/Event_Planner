@@ -12,6 +12,43 @@ router.get('/', async (req, res) => {
   res.render('homepage', { classifications })
 });
 
+router.get('/login', (req, res) => {
+  // If the user is already logged in, redirect the request to another route
+  if (req.session.logged_in) {
+    res.redirect('/profile');
+    return;
+  }
+
+  res.render('login');
+});
+
+router.get('/signup', (req, res) => {
+
+  res.render('signup');
+});
+
+//Getting event information based on the event ID that comes from what event is clicked//
+router.get('/eventpage/:id', async (req, res) => {
+  try {
+    const eventData = await Event.findByPk(req.params.id, {
+      include: [{ model: Classification }]
+    })
+
+    const eventInfo = eventData.get({ plain: true });
+
+    res.render('eventpage', {
+      ...eventInfo,
+      date: dayjs(eventInfo.start_date_time).format('MM/DD/YYYY'),
+      logged_in: req.session.logged_in
+    })
+    console.log(eventInfo)
+  }
+  catch (error) {
+    console.error('Error fetching event data:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+})
+
 router.get('/project/:id', async (req, res) => {
   try {
     const projectData = await Project.findByPk(req.params.id, {
@@ -53,42 +90,5 @@ router.get('/profile', withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
-
-router.get('/login', (req, res) => {
-  // If the user is already logged in, redirect the request to another route
-  if (req.session.logged_in) {
-    res.redirect('/profile');
-    return;
-  }
-
-  res.render('login');
-});
-
-router.get('/signup', (req, res) => {
-
-  res.render('signup');
-});
-
-//Getting event information based on the event ID that comes from what event is clicked//
-router.get('/eventpage/:id', async (req, res) => {
-  try {
-    const eventData = await Event.findByPk(req.params.id, {
-      include: [{ model: Classification }]
-    })
-
-    const eventInfo = eventData.get({ plain: true });
-
-    res.render('eventpage', {
-      ...eventInfo,
-      date: dayjs(eventInfo.start_date_time).format('MM/DD/YYYY'),
-      logged_in: req.session.logged_in
-    })
-    console.log(eventInfo)
-  }
-  catch (error) {
-    console.error('Error fetching event data:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-})
 
 module.exports = router;
