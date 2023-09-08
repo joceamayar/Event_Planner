@@ -11,6 +11,14 @@ Event.init(
             primaryKey: true,
             autoIncrement: true,
         },
+        user_id: {
+            type: DataTypes.INTEGER,
+            references: {
+              model: 'user',
+              key: 'id',
+              unique: false
+            }
+          },
         ticketmaster_id: {
             type: DataTypes.STRING,
             allowNull: false
