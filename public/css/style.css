@@ -6,6 +6,13 @@
   font-size: 40px;
 }
 
+#welcomeMessage {
+  display: inline;
+  background-color: lightgrey;
+  padding: 7px;
+  border-radius: 5px;
+}
+
 #signUpText {
   font-size: 40px;
   text-align: center;
