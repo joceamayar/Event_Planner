@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-// MVC controller
+//** MVC controller
 // Example route: http://localhost:3001/event?classification_id=KZFzniwnSyZfZ7v7n1&zip_code=02169
 router.get('/', async (req, res) => {
 
