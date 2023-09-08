@@ -1,87 +1,46 @@
+// API for the app
 const router = require('express').Router();
 const { Event } = require('../../models');
 
-// user wants to save event found in event search
-router.post('/save_event', async (req, res) => {
-  // ticket master event
-  let event = {
-    id: "", //ticketmaster id
-    name: ''
+// gets all events for a user from the database
+// http://localhost:3001/api/events?user_id=1
+router.get('/', async (req, res) => {
+  try {
+    const userId = req.query.user_id; //getting user id from url parameters
+    const userData = await Event.findAll({
+      where: {
+        user_id: userId,
+      }
+    });
+    res.status(200).json(userData);
+  } catch (err) {
+    res.status(500).json(err);
   }
-
-  // find user who called this route
-  let newEvent = await Event.create({
-    user_id: "", //figure out who calls this
-    ticketmaster_id: event.id,
-    name: event.name
-  });
-
-  console.log(newEvent);
-  res.status(200).json(newEvent);
 });
 
-
-router.get('/', async (req, res) => {
-  // {
-  //   "classification": "123456",
-  //   "zip_code": "01679",
-  //   "start_time": "2023-09-15",
-  // }
-
-  try {
-    let classification = req.query.classification;
-    let zip_code = req.query.zip_code;
-    // let start_time = req.query.start_time;
-
-    const apiKey = "ooGU8uX0cAG4SM9WQPPlO5iFhuOfdLN2";
-    let url = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}`;
-
-    if (classification) {
-      url += `&classificationId=${classification}`;
-    }
-
-    if (zip_code) {
-      url += `&postalCode=${zip_code}`;
-    }
-
-    // if (start_time) {
-    //   url += `&localStartDateTime=${start_time}`;
-    // }
-
-    let response = await fetch(url, {
-      method: 'GET'
+// user wants to save event found in event search
+router.post('/', async (req, res) => {
+  try { 
+    //validation? 
+    const savedEvent = await Event.create({
+      user_id: req.body.user_id,
+      ticketmaster_id: req.body.ticketmaster_id,
+      ticketmaster_url: req.body.ticketmaster_url,
+      imageUrl: req.body.imageUrl,
+      name: req.body.name,
+      description: req.body.description,
+      start_date_time: req.body.start_date_time,
+      end_date_time: req.body.end_date_time,
+      zip_code: req.body.zip_code,
+      address: req.body.address,
+      city: req.body.city,
+      state: req.body.state,
+      classification_id: req.body.classification_id
     });
-
-    let data = await response.json()
-    let events = data._embedded.events;
-    console.log(events)
-
-    res.status(200).json(events);
+    res.status(200).json(savedEvent);
   } catch (err) {
     res.status(400).json(err);
   }
 });
 
 module.exports = router;
-
-// this file is for the api/events routes that will get fetched from the public *.js file
-// == every route in here interatcting with database for the events table
-// get all events for a user
-// /api/events/
-// router.get('/', async (req, res) => {
-//   try {
-
-//     const eventsData = await Event.findAll({
-//       where: {
-//         user_id: req.session.user_id
-//       }
-//     });
-
-//     console.log(eventsData)
-//     res.status(200).json(eventsData);
-
-//   } catch (err) {
-//     console.log(err)
-//     res.status(400).json(err);
-//   }
-// });

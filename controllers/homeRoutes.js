@@ -4,10 +4,11 @@ const withAuth = require('../utils/auth');
 const dayjs = require('dayjs')
 
 router.get('/', async (req, res) => {
-  //find classifications 
+  // find classifications 
   let classificationData = await Classification.findAll()
   let classifications = classificationData.map(classification => classification.get({ plain: true }))
 
+  // replace handlebars with classifications
   res.render('homepage', { classifications })
 });
 
