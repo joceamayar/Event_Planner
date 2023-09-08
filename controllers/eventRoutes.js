@@ -69,8 +69,6 @@ router.get('/:id', async (res,req)=> {
 
   res.send(data)
 
-  
-
   res.render('eventpage', data, {
       event: data.name,
       date: data.dates.start.localDate,
