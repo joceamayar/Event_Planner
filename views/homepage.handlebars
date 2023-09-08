@@ -1,31 +1,27 @@
 {{! Banner }}
 <div class="bg-gray-50 p-3">
-  <section class="w-full bg-cover bg-center py-32" style="background-image: url('https://source.unsplash.com/random');">
-    <div class="container mx-auto text-center text-white">
+  <section class="w-full bg-cover bg-center py-32" style="background-color:rgba(164, 165, 161, 0.585)">
+    <div class="container mx-auto text-center text-black">
       <h1 class="text-5xl font-medium mb-6">Welcome to EventPulse!</h1>
       <p class="text-xl mb-12">Get started by selecting your category below to
         find events.</p>
-      <a href="#" class="bg-indigo-500 text-white py-4 px-12 rounded-full hover:bg-indigo-600">Demo</a>
     </div>
   </section>
 </div>
 
-<!-- Classifications -->
+<!-- Categories -->
 <div>
   {{#each classifications}}
   <div
     class="flex flex-col md:flex-row space-x-0 md:space-x-8 space-y-12 md:space-y-0 justify-center items-center mt-10">
-    <div class="bg-[#FFFBEC] rounded-xl">
+    <div class="bg-[#635f63] rounded-xl">
       <div class="flex flex-col p-8 rounded-xl bg-white shadow-xl translate-x-4 translate-y-4 w-96 md:w-auto">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Ice_logo.svg/138px-Ice_logo.svg.png?20191213230535"
-          class="w-8" />
         <div class="mt-3 font-semibold text-lg"> {{classification_name}}</div>
-        <div class="text-sm font-light">ID: {{ticketmaster_classification_id}}</div>
+        {{!-- <div class="text-sm font-light">ID: {{ticketmaster_classification_id}}</div> --}}
 
         <button class="bg-[#F4F5FA] px-4 py-3 rounded-full border border-[#F0F0F6] shadow-xl mt-4">
           {{!-- button to go to events page --}}
-          Go to category
+          Click Me!
         </button>
       </div>
     </div>

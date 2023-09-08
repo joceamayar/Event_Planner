@@ -1,4 +1,4 @@
-// API for the app
+//* API for the app
 const router = require('express').Router();
 const { Event } = require('../../models');
 
@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
 
 // user wants to save event found in event search
 router.post('/', async (req, res) => {
-  try { 
+  try {
     //validation? 
     const savedEvent = await Event.create({
       user_id: req.body.user_id,

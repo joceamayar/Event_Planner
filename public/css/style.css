@@ -24,6 +24,16 @@
   text-align: center;
 }
 
+#routetologin {
+  font-size: 15px;
+  color: rgb(19, 114, 173);
+}
+
+#signUpLink {
+  font-size: 15px;
+  color: rgb(19, 114, 173);
+}
+
 .signupcontainer {
   background-color: lightgrey;
   width: 80%;

@@ -44,6 +44,20 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
+router.get('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Something went wrong:', err);
+      req.session.error = 'Logout failed. Please try again.';
+
+      res.redirect('/profile');
+    } else {
+
+      res.redirect('/login');
+    }
+  });
+});
+
 router.get('/signup', (req, res) => {
 
   res.render('signup');
