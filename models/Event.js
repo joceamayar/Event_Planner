@@ -1,3 +1,5 @@
+//this file is only to create the tables, we can add the saved events to this table. 
+
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
@@ -11,17 +13,20 @@ Event.init(
             primaryKey: true,
             autoIncrement: true,
         },
+        // we don't need a saved_event model because we are saving each event to a user here
         user_id: {
             type: DataTypes.INTEGER,
             references: {
-              model: 'user',
-              key: 'id',
-              unique: false
+                model: 'user',
+                key: 'id',
+                unique: false
             }
-          },
-        ticketmaster_id: {
+        },
+        // if created in the app by the user, this is null
+        // if this was saved from ticket master, this is not null and will have the ticketMaster ID
+        ticketmaster_id: { 
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         ticketmaster_url: {
             type: DataTypes.STRING,
@@ -61,7 +66,7 @@ Event.init(
             type: DataTypes.STRING,
             allowNull: true,
         },
-        city:{
+        city: {
             type: DataTypes.STRING,
         },
         state: {

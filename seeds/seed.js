@@ -4,7 +4,6 @@ const { User, Event, Classification } = require('../models');
 const userData = require('./userData.json');
 const eventData = require('./test-eventData.json');
 const classificationData = require('./classificationData.json')
-const apiKey = "ooGU8uX0cAG4SM9WQPPlO5iFhuOfdLN2";
 
 const seedDatabase = async () => {
   await sequelize.sync({ force: true });
@@ -29,10 +28,12 @@ const seedDatabase = async () => {
 const seedCategories = async () => {
   let classifications = await getClassifications();
 
+  // loop through classifications and add to database
   for (let i = 0; i < classifications.length; i++) {
     const ticketMasterClassification = classifications[i];
 
     if (ticketMasterClassification && ticketMasterClassification.id) {
+      // add to database
       await Classification.create({
         ticketmaster_classification_id: ticketMasterClassification.id,
         classification_name: ticketMasterClassification.name,
@@ -42,15 +43,17 @@ const seedCategories = async () => {
 }
 
 const getClassifications = async () => {
+  const apiKey = "ooGU8uX0cAG4SM9WQPPlO5iFhuOfdLN2";
   let url = `https://app.ticketmaster.com/discovery/v2/classifications.json?apikey=${apiKey}`;
 
   let response = await fetch(url, {
     method: 'GET'
   });
 
+  // data coming back from ticket master
   let data = await response.json();
+
   if (data._embedded && data._embedded.classifications) {
-   
     let classArr = data._embedded.classifications.map(c => c.segment);
     console.log(classArr)
     return classArr
