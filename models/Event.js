@@ -72,14 +72,14 @@ Event.init(
         state: {
             type: DataTypes.STRING,
         },
-        user_id: {
-            type: DataTypes.INTEGER,
-            references: {
-                model: 'user',
-                key: 'id',
-                unique: false
-            },
-        },
+        // user_id: {
+        //     type: DataTypes.INTEGER,
+        //     references: {
+        //         model: 'user',
+        //         key: 'id',
+        //         unique: false
+        //     },
+        // },
         classification_id: {
             type: DataTypes.INTEGER,
             references: {
