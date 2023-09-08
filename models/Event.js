@@ -16,6 +16,7 @@ Event.init(
         // we don't need a saved_event model because we are saving each event to a user here
         user_id: {
             type: DataTypes.INTEGER,
+            allowNull: false,
             references: {
                 model: 'user',
                 key: 'id',
@@ -30,11 +31,11 @@ Event.init(
         },
         ticketmaster_url: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         imageUrl: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         name: {
             type: DataTypes.STRING,
@@ -46,7 +47,7 @@ Event.init(
         },
         start_date_time: {
             type: DataTypes.DATE,
-            allowNull: false,
+            allowNull: true,
             validate: {
                 isDate: true,
             }
@@ -68,20 +69,15 @@ Event.init(
         },
         city: {
             type: DataTypes.STRING,
+            allowNull: true,
         },
         state: {
             type: DataTypes.STRING,
+            allowNull: true,
         },
-        // user_id: {
-        //     type: DataTypes.INTEGER,
-        //     references: {
-        //         model: 'user',
-        //         key: 'id',
-        //         unique: false
-        //     },
-        // },
         classification_id: {
             type: DataTypes.INTEGER,
+            allowNull: true,
             references: {
                 model: 'classification',
                 key: 'id',

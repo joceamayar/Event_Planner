@@ -6,6 +6,7 @@ router.get('/', async (req, res) => {
 
   // get route parameters (see above example route)
   let classification_id = req.query.classification_id;
+  let ticketmaster_classification_id = req.query.ticketmaster_classification_id;
   let zip_code = req.query.zip_code;
 
   // get events dynamically from ticket master
@@ -32,9 +33,9 @@ router.get('/', async (req, res) => {
     let events = data._embedded.events;
 
     // giving back html (This gets the data to render handlebars)
-    res.render('event', { classification_id, events })
+    res.render('event', { ticketmaster_classification_id, classification_id, events })
   } else {
-    res.render('event', { classification_id })
+    res.render('event', { ticketmaster_classification_id, classification_id })
   }
 });
 
