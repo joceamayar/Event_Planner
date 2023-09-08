@@ -6,6 +6,14 @@
   font-size: 40px;
 }
 
+#welcomeMessage {
+  display: inline;
+  background-color: rgb(226, 227, 227);
+  padding: 7px;
+  border-radius: 5px;
+  box-shadow: 7px 5px 5px #e1d2d2;
+}
+
 #signUpText {
   font-size: 40px;
   text-align: center;
