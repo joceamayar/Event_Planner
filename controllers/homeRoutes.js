@@ -4,9 +4,11 @@ const withAuth = require('../utils/auth');
 const dayjs = require('dayjs')
 
 router.get('/', async (req, res) => {
+  //find classifications 
+  let classificationData = await Classification.findAll()
+  let classifications = classificationData.map(classification => classification.get({ plain: true }))
 
-  res.render('homepage')
-
+  res.render('homepage', { classifications })
 });
 
 router.get('/project/:id', async (req, res) => {
