@@ -66,6 +66,7 @@ router.get('/signup', (req, res) => {
   res.render('signup');
 });
 
+//Getting event information based on the event ID that comes from what event is clicked//
 router.get('/eventpage/:id', async (req, res) => {
   try {
     const eventData = await Event.findByPk(req.params.id, {
