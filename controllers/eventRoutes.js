@@ -4,6 +4,8 @@ const router = require('express').Router();
 // This is not an API route - this route returns the HTML page with Event data already fetched, and replaces the handlebars template.
 // Example route: http://localhost:3001/event?classification_id=2&ticketmaster_classification_id=KZFzniwnSyZfZ7v7n1&zip_code=02169
 // ^ this is a browser url, not an API route - Pass in classification_id, ticketmaster_classification_id and zip_code through the browser url
+//** MVC controller
+// Example route: http://localhost:3001/event?classification_id=KZFzniwnSyZfZ7v7n1&zip_code=02169
 router.get('/', async (req, res) => {
 
   // get route parameters (see above example route)
