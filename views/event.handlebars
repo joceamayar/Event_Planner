@@ -4,9 +4,15 @@
     {{#each events}}
     <div>
         <h2>{{name}}</h2>
+        <button class="dynamicButton" 
+            data-id={{id}}
+            data-name={{name}}
+            >
+        </button>
     </div>
     {{/each}}
 </div>
 
+<a href="//localhost:3001/event?classification_id=2&ticketmaster_classification_id=KZFzniwnSyZfZ7v7n1">events</a>
 
 <script src="/js/events.js"></script>
