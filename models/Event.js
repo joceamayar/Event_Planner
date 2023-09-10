@@ -63,6 +63,7 @@ Event.init(
         //         isDate: true,
         //     }
         // },
+        
         zip_code: {
             type: DataTypes.STRING,
             allowNull: true,

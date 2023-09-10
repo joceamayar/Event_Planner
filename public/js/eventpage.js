@@ -1,7 +1,11 @@
 let id = req.query.eventID
 
 let eventFetch = async ()=> {
-    let response = await fetch(`/eventID=${id}`, {
+    //let response = await fetch(`/eventID=${id}`, {
+    //let response = await fetch(`/event?eventID=${id}&categoryId=${categoryId}`, {
+   
+    //Try get/?eventID and if it doesn't fetch then try get?eventID
+    let response = await fetch(`/event/get/?eventID=${id}`, {
         method: 'GET'
     })
     return response;
@@ -32,32 +36,13 @@ let saveEvent = async () => {
     if (response.ok) {
         showPopup()
       } else {
-        alert('Failed to create project');
+        alert('Failed to Save Event, try again');
       }
-    
-
-
-  //------------Grab All of these -------------//
-
-    // user_id: req.body.user_id,
-    // ticketmaster_id: req.body.ticketmaster_id,
-    // ticketmaster_url: req.body.ticketmaster_url,
-    // imageUrl: req.body.imageUrl,
-    // name: req.body.name,
-    // description: req.body.description,
-    // start_date_time: req.body.start_date_time,
-    // end_date_time: req.body.end_date_time,
-    // zip_code: req.body.zip_code,
-    // address: req.body.address,
-    // city: req.body.city,
-    // state: req.body.state,
-    // classification_id: req.body.classification_id
-
 }
 
 
 
-//--------Chat GPT POPUP-------------//
+//--------POPUP-------------//
 
 function showPopup() {
     const popup = document.getElementById("popup");
@@ -71,9 +56,9 @@ function hidePopup() {
 }
 
 // Attach an event listener to the save button
-const saveButton = document.getElementById("saveButton");
+const saveButton = document.getElementById("save-btn");
 saveButton.addEventListener("click", () => {
-    saveEvent;
+    saveEvent();
 });
 
 // Attach an event listener to the close button of the popup
