@@ -46,10 +46,8 @@ router.get('/', async (req, res) => {
 ///-------------------------Eventpage Route-----------------------------///
 // Needed a new route for my render page. Instead of putting a bunch of if statements in the above route, this would be cleaner. 
 // localhost:3001/event/get?eventID=Z7r9jZ1AdqwP_&classification=..& >>>This is to include both eventID and classification ID in the parameters
-router.get(`/get`, async (req,res)=> {
+router.get(`/:id`, async (req,res)=> {
   // get route parameters (see above example route)
-  //let event_id = req.params.id;
-  let event_id = req.query.eventID;
   
   //Just setting the class to Miscellaneous key 
   let classification_id = req.query.classification_id
@@ -57,45 +55,68 @@ router.get(`/get`, async (req,res)=> {
   //Setting category equal to "Random"
   let category = "Random"
 
-  //
-
-
   //Created an array of all the classifications and their associated IDs
   let categoryArr = [
     {
       cat: "Miscellaneous",
-      key: "KZFzniwnSyZfZ7v7n1"
+      key: "KZFzniwnSyZfZ7v7n1",
+      imgKey: "34Xicn82lY4"
     },
     {
       cat: "Sports",
-      key: "KZFzniwnSyZfZ7v7nE"
+      key: "KZFzniwnSyZfZ7v7nE",
+      imgKey: "0B_S1vTY0NU"
     },
     {
       cat: "Music",
-      key: "KZFzniwnSyZfZ7v7nJ"
+      key: "KZFzniwnSyZfZ7v7nJ",
+      imgKey: "aWXVxy8BSzc"
     },
     {
       cat: "Arts & Theatre",
-      key: "KZFzniwnSyZfZ7v7na"
+      key: "KZFzniwnSyZfZ7v7na",
+      imgKey: "gIDMmhKARLk"
     },
     {
       cat: "Undefined",
-      key: "KZFzniwnSyZfZ7v7nl"
+      key: "KZFzniwnSyZfZ7v7nl",
+      imgKey: "yueLIYXDpzw"
     },
     {
       cat: "Film",
-      key: "KZFzniwnSyZfZ7v7nn"
+      key: "KZFzniwnSyZfZ7v7nn",
+      imgKey: "nLl5sJnElxY"
     }
 ]
 
-  //Finding the category where the classfication_id from the query parameters is equal to the classification key
-  let foundCategory = categoryArr.find(category => category.key===classification_id);
+    //Finding the category where the classfication_id from the query parameters is equal to the classification key
+    let foundCategory = categoryArr.find(category => category.key===classification_id);
 
-  //If we find a matching value then get the category name associated with that key
-  if(foundCategory){
+   //If we find a matching value then get the category name associated with that key
+    if(foundCategory){
     category = foundCategory.cat
+    }
+
+//---------------------Fetch for Category Banner Image -----------------//
+
+    let unsplashKEY = "Ftv1Z09dCkfC4h_vSuAWUHQL1PRguPeLoejKjjc-1sQ"
+    let photoID = foundCategory.imgKey
+
+    let getImageData = async(photoID, unsplashKEY) =>{
+      let allImageData = await fetch(`https://api.unsplash.com/photos/${photoID}/?clientID=${unsplashKEY}`, {
+      method: "GET"})
+      let bannerImageData = await allImageData.json()
+      let bannerURL = bannerImageData.id
+      console.log(bannerURL)
   }
 
+  getImageData(photoID, unsplashKEY)
+
+
+  //----------------Fetch for Ticketmaster Data---------------//
+  //let event_id = req.params.id;
+  let event_id = req.params.id;
+  //API key for ticketmaster
   const apiKey = "ooGU8uX0cAG4SM9WQPPlO5iFhuOfdLN2";
 
   //Setting the url
@@ -116,12 +137,14 @@ router.get(`/get`, async (req,res)=> {
   });
   
   let data = await response.json()
+  console.log(data.dates)
   //Using dayjs to set the format of the date to the Spelled out Month, Two-digit day, Four-digit year
   let dateFormat = dayjs(data.dates.start.localDate).format('MMMM DD, YYYY')
 
   res.render('eventpage', {
       //Using the classification id to render the right category name
       classification: category,
+      categoryImg: bannerURL,
       event: data.name,
       date: dateFormat,
       address: data._embedded.venues[0].address.line1,
