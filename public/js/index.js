@@ -20,3 +20,4 @@ let fetchOnPageLoad = async () => {
 }
 
 fetchOnPageLoad();
+
