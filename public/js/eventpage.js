@@ -5,7 +5,7 @@ let eventFetch = async ()=> {
     //let response = await fetch(`/event?eventID=${id}&categoryId=${categoryId}`, {
    
     //Try get/?eventID and if it doesn't fetch then try get?eventID
-    let response = await fetch(`/event/get/?eventID=${id}`, {
+    let response = await fetch(`/event/${id}`, {
         method: 'GET'
     })
     return response;

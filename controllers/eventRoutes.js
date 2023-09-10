@@ -91,23 +91,33 @@ router.get(`/:id`, async (req,res)=> {
 
     //Finding the category where the classfication_id from the query parameters is equal to the classification key
     let foundCategory = categoryArr.find(category => category.key===classification_id);
-
-   //If we find a matching value then get the category name associated with that key
+    console.log(foundCategory)
+   
+    //If we find a matching value then get the category name associated with that key
     if(foundCategory){
-    category = foundCategory.cat
+    }
+    else{
+      console.log("Category not found")
     }
 
 //---------------------Fetch for Category Banner Image -----------------//
 
     let unsplashKEY = "Ftv1Z09dCkfC4h_vSuAWUHQL1PRguPeLoejKjjc-1sQ"
     let photoID = foundCategory.imgKey
-
+    console.log(photoID)
+    let bannerURL;
     let getImageData = async(photoID, unsplashKEY) =>{
-      let allImageData = await fetch(`https://api.unsplash.com/photos/${photoID}/?clientID=${unsplashKEY}`, {
+      let allImageData = await fetch(`https://api.unsplash.com/photos/${photoID}/?client_id=${unsplashKEY}`, {
       method: "GET"})
-      let bannerImageData = await allImageData.json()
-      let bannerURL = bannerImageData.id
-      console.log(bannerURL)
+      //If the response is okay then get the URL's. If not then try a new KEY
+      if (allImageData.ok) {
+        let bannerImageData = await allImageData.json()
+        bannerURL = bannerImageData.urls.small
+        }
+      else if(!allImageData.ok){
+        unsplashKEY = "3ToKaeZv1WWRFpRIRC6wrqtP0uSlaL4mP1_mjCAlGGw"
+        getImageData(photoID, unsplashKEY);
+      }
   }
 
   getImageData(photoID, unsplashKEY)
