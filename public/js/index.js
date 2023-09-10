@@ -1,6 +1,6 @@
-let fetchOnPageLoad = async () =>{
+let fetchOnPageLoad = async () => {
     try {
-        const response = await fetch('http://localhost:3001/api/classifications',{
+        const response = await fetch('http://localhost:3001/api/classifications', {
             method: 'GET'
         })
 
@@ -10,9 +10,9 @@ let fetchOnPageLoad = async () =>{
             window.classifications = data;
             console.log(window.classifications)
             return;
-          } else {
+        } else {
             alert(response.statusText);
-          }
+        }
 
     } catch (error) {
         console.log(error)
@@ -21,4 +21,3 @@ let fetchOnPageLoad = async () =>{
 
 fetchOnPageLoad();
 
-fetch()

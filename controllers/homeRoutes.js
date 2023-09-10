@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Project, User, Classification, Event } = require('../models');
+const { User, Classification, Event } = require('../models');
 const withAuth = require('../utils/auth');
 const dayjs = require('dayjs')
 
@@ -12,6 +12,28 @@ router.get('/', async (req, res) => {
   res.render('homepage', { classifications })
 });
 
+// Use withAuth middleware to prevent access to route
+
+router.get('/profile', withAuth, async (req, res) => {
+  try {
+    // Find the logged in user based on the session ID
+    const userData = await User.findByPk(req.session.user_id, {
+      attributes: { exclude: ['password'] },
+      include: [{ model: Event }],
+    });
+
+    const user = userData.get({ plain: true });
+
+    res.render('profile', {
+      ...user,
+      logged_in: true
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
 router.get('/login', (req, res) => {
   // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
@@ -20,6 +42,20 @@ router.get('/login', (req, res) => {
   }
 
   res.render('login');
+});
+
+router.get('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Something went wrong:', err);
+      req.session.error = 'Logout failed. Please try again.';
+
+      res.redirect('/profile');
+    } else {
+
+      res.redirect('/login');
+    }
+  });
 });
 
 router.get('/signup', (req, res) => {
@@ -48,47 +84,5 @@ router.get('/eventpage/:id', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 })
-
-router.get('/project/:id', async (req, res) => {
-  try {
-    const projectData = await Project.findByPk(req.params.id, {
-      include: [
-        {
-          model: User,
-          attributes: ['name'],
-        },
-      ],
-    });
-
-    const project = projectData.get({ plain: true });
-
-    res.render('project', {
-      ...project,
-      logged_in: req.session.logged_in
-    });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-// Use withAuth middleware to prevent access to route
-router.get('/profile', withAuth, async (req, res) => {
-  try {
-    // Find the logged in user based on the session ID
-    const userData = await User.findByPk(req.session.user_id, {
-      attributes: { exclude: ['password'] },
-      include: [{ model: Project }],
-    });
-
-    const user = userData.get({ plain: true });
-
-    res.render('profile', {
-      ...user,
-      logged_in: true
-    });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
 
 module.exports = router;

@@ -1,4 +1,4 @@
-// API for the app
+//* API for the app
 const router = require('express').Router();
 const { Event } = require('../../models');
 const withAuth = require('../../utils/auth')
