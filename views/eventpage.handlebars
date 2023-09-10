@@ -1,36 +1,35 @@
 <header>
-    {{!-- Classification Title - Need to add when clicked it takes you back to the category handlebar--}}
-     <section id="classification-title-section"
-    class="w-full bg-cover bg-center py-32"
-    {{!-- style="background-image: url('https://source.unsplash.com/photos/lOGJiIlZFBI');"
-  > --}}>
-    <div class="container mx-auto text-center text-white">
-      <h1 id='classification-title' class="text-5xl font-medium mb-6">Theater and Arts</h1>
-      </section>
-      {{!-- Image URL of the event --}}
-      <img src='{{imageURL}}'>
-
-      <div>
-        <h3>{{event}}</h3>
-        <h3>{{date}}</h3>
-        <h4>{{venue}} 
-            <br>{{address}}
-            <br>{{city}},{{state}} {{zip}}</h4>
-        </div>
+    {{!-- Banner for the Category--}}
+    <div class="relative bg-cover bg-center h-64" style="background-image: https://api.unsplash.com/photos/gIDMmhKARLk/?client_id=Ftv1Z09dCkfC4h_vSuAWUHQL1PRguPeLoejKjjc-1sQ">
+        <!-- Banner content goes here -->
+        <div class="absolute inset-0 flex items-center justify-center bg-opacity-75 bg-gray-900 text-white"></div>
+        <h1>{{classification}}</h1>
     </div>
-  
+    </div>
 </header>
+<img src='{{imageURL}}'>
+<div>
+    <h3>{{event}}</h3>
+    <h3>{{date}}</h3>
+    <h4>{{venue}}
+        <br>{{address}}
+        <br>{{city}},{{state}} {{zip}}
+    </h4>
+</div>
+</div>
+
+
 
 <div>
     <br>
     <h3>
-    Event Details:
+        Event Details:
     </h3>
-        <p>Details Here</p>
-        <br>
-  
+    <p>Details Here</p>
+    <br>
+
     <h5>
-        Ticket Information: 
+        Ticket Information:
     </h5>
     <p>Price Ranges: {{price.min}} - {{price.max}}</p>
     <br>
@@ -42,12 +41,12 @@
 <button id="save-btn">Save Event</button>
 
 {{!-- Popup for When Event is Saved --}}
- <div id="popup" class="popup">
-        <div class="popup-content">
-            <span class="close-button" id="closeButton">&times;</span>
-            <p>Event saved</p>
-        </div>
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <span class="close-button" id="closeButton">&times;</span>
+        <p>Event saved</p>
     </div>
+</div>
 
 
 

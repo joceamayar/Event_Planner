@@ -43,37 +43,85 @@ router.get('/', async (req, res) => {
 });
 
 
-///---------------------Keval's Eventpage Route-----------------------------///
-// Keep at bottom of all other event routes
-//router.get('/:id', async (req,res)=> {
-// localhost:3001/event/get?eventID=Z7r9jZ1AdqwP_
-// localhost:3001/event/get?eventID=Z7r9jZ1AdqwP_&classification=..&
+///-------------------------Eventpage Route-----------------------------///
+// Needed a new route for my render page. Instead of putting a bunch of if statements in the above route, this would be cleaner. 
+// localhost:3001/event/get?eventID=Z7r9jZ1AdqwP_&classification=..& >>>This is to include both eventID and classification ID in the parameters
 router.get(`/get`, async (req,res)=> {
   // get route parameters (see above example route)
-  let event_id = req.query.eventID;
-  console.log(event_id)
-
   //let event_id = req.params.id;
-  let ticketmaster_classification_id = req.query.ticketmaster_classification_id;
-  // let zip_code = req.query.zip_code;
+  let event_id = req.query.eventID;
   
-  // get events dynamically from ticket master
+  //Just setting the class to Miscellaneous key 
+  let classification_id = req.query.classification_id
+
+  //Setting category equal to "Random"
+  let category = "Random"
+
+  //
+
+
+  //Created an array of all the classifications and their associated IDs
+  let categoryArr = [
+    {
+      cat: "Miscellaneous",
+      key: "KZFzniwnSyZfZ7v7n1"
+    },
+    {
+      cat: "Sports",
+      key: "KZFzniwnSyZfZ7v7nE"
+    },
+    {
+      cat: "Music",
+      key: "KZFzniwnSyZfZ7v7nJ"
+    },
+    {
+      cat: "Arts & Theatre",
+      key: "KZFzniwnSyZfZ7v7na"
+    },
+    {
+      cat: "Undefined",
+      key: "KZFzniwnSyZfZ7v7nl"
+    },
+    {
+      cat: "Film",
+      key: "KZFzniwnSyZfZ7v7nn"
+    }
+]
+
+  //Finding the category where the classfication_id from the query parameters is equal to the classification key
+  let foundCategory = categoryArr.find(category => category.key===classification_id);
+
+  //If we find a matching value then get the category name associated with that key
+  if(foundCategory){
+    category = foundCategory.cat
+  }
+
   const apiKey = "ooGU8uX0cAG4SM9WQPPlO5iFhuOfdLN2";
 
-  // let url = `https://app.ticketmaster.com/discovery/v2/events${event}.json?apikey=${apiKey}`;
-  let url = "https://app.ticketmaster.com/discovery/v2/events${event}.json?apikey=${apiKey}";
+  //Setting the url
+  let url = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}`;
+  
+  //If there is an eventID in the parameters then set the url to the one below
   if(event_id) {
     url = `https://app.ticketmaster.com/discovery/v2/events/${event_id}.json?apikey=${apiKey}`;
   } 
+  else{
+    //Renders wrong route if the eventID is not included in the query parameters//
+    res.send("<h1>Wrong Route!</h1>")
+  }
   
+  //Fetching the data from API for the event
   let response = await fetch(url, {
     method: 'GET'
   });
   
   let data = await response.json()
+  //Using dayjs to set the format of the date to the Spelled out Month, Two-digit day, Four-digit year
   let dateFormat = dayjs(data.dates.start.localDate).format('MMMM DD, YYYY')
 
   res.render('eventpage', {
+      //Using the classification id to render the right category name
+      classification: category,
       event: data.name,
       date: dateFormat,
       address: data._embedded.venues[0].address.line1,
@@ -81,48 +129,20 @@ router.get(`/get`, async (req,res)=> {
       state: data._embedded.venues[0].state.name,
       eventID: data.id,
       ticketmaster_url: data.url,
+      //Gets first 5 of postal code because it can be more than 5 digits>> For code below//
       zip_code: data._embedded.venues[0].postalCode.slice(0,5),
+      //The ? states that if there is NO data and NO priceRanges and NO min/max  in the API info for that event then set that value equal to "N/A" >> Called a ternary operator
       price: {
           min: data?.priceRanges?.min ? data?.priceRanges?.min : "N/A",
           max: data?.priceRanges?.max ? data?.priceRanges?.min : "N/A"
       }, 
-      //Gets first 5 of postal code because it can be more than 5 digits//
       classification_id: data.classifications[0].segment.id,
       venue: data._embedded.venues[0].name,
       imageURL: data.images.find(image => image.ratio==="4_3").url,
+      //The ? states that if there is NO data and NO seatmap and NO static curl  in the API info for that event then set that value equal to "Check Ticketmaster for a SeatMAP >> Called a ternary operator"
       seatMap: data?.seatmap?.staticurl ?  data?.seatmap?.staticurl : "Check Ticketmaster for a SeatMap"
   })
-  
-  
-  // add classification if it was in the route
-  
-  // if(event_id){
-  //   event = `/${event_id}`;
-  // }
-  
-  // // add zip code if it was in the route
-  // if (zip_code) {
-  //   url += `&postalCode=${zip_code}`;
-  // }
-  
 
-  
-  // fetch data from ticket master
-  // let response = await fetch(url, {
-  //   method: 'GET'
-  // });
-  
-  // let data = await response.json()
-
-
-  // if (data._embedded && data._embedded.events) {
-  //   let events = data._embedded.events;
-    
-    // giving back html (This gets the data to render handlebars)
-  //   res.render('event', { ticketmaster_classification_id, classification_id, events })
-  // } else {
-  //   res.render('event', { ticketmaster_classification_id, classification_id })
-  // }
 })
 
 module.exports = router;

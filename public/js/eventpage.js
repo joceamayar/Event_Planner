@@ -11,7 +11,7 @@ let eventFetch = async ()=> {
     return response;
 }
 
-eventFetch()
+
 
 let saveEvent = async () => {
     let eventData = await eventFetch()
