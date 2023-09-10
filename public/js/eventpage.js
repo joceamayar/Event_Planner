@@ -14,7 +14,6 @@ let eventDataFetch = async ()=> {
     return response;
 } 
 
-
 let saveEvent = async () => {
     let eventData = await eventDataFetch()
     //Get what you need from event and then put it in the body for the post fetch//

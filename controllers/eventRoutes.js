@@ -114,43 +114,59 @@ router.get(`/:id`, async (req, res) => {
   //Finding the category where the classfication_id from the query parameters is equal to the classification key
 
     let foundCategory = await categoryArr.find(category => category.key == classification_id);
-
+    console.log(foundCategory)
+    let unsplashKEY = "3ToKaeZv1WWRFpRIRC6wrqtP0uSlaL4mP1_mjCAlGGw"
   //If we find a matching value then get the category name associated with that key and if not then set the category = "Random"
-  if (foundCategory) {
-    category = foundCategory.cat
-  }
-  else {
+  try {
+    if (foundCategory) {
+      category = foundCategory.cat
+      let photoID = foundCategory.imgKey
+      let bannerImageURL = await getImageData(photoID, unsplashKEY)
+      console.log(bannerImageURL)
+      return bannerImageURL
+    }
+    else{
+      category = "Random"
+      let photoID = "34Xicn82lY4"
+      let bannerImageURL = await(getImageData(photoID,unsplashKEY))
+      return bannerImageURL
+    }
+  } catch (error) {
     console.log("Category not found and category Image not found")
-    category = "Random"
   }
-
+  
   //---------------------Fetch for Category Banner Image -----------------//
 
-  let unsplashKEY = "Ftv1Z09dCkfC4h_vSuAWUHQL1PRguPeLoejKjjc-1sQ"
-  let photoID = foundCategory.imgKey
-  //If the photoID is undefined then set it to the miscellaneous
-  if (photoID == undefined) {
-    photoID = "34Xicn82lY4"
-  };
-  console.log(photoID)
-  let bannerURL;
 
-  let getImageData = async (photoID, unsplashKEY) => {
-    let allImageData = await fetch(`https://api.unsplash.com/photos/${photoID}/?client_id=${unsplashKEY}`, {
+ //------------Previous Try-------------------//
+  //If the photoID is undefined then set it to the miscellaneous
+  // if (photoID == undefined) {
+  //   photoID = "34Xicn82lY4"
+  // };
+  // console.log(foundCategory)
+  // console.log(photoID)
+  // let bannerURL;
+
+  async function getImageData(photoID, unsplashKEY) {
+    let URL = `https://api.unsplash.com/photos/${photoID}/?client_id=${unsplashKEY}`
+
+    let allImageData = await fetch(URL, {
       method: "GET"
     })
     //If the response is okay then get the URL's. If not then try a new KEY
-    if (allImageData.ok) {
-      let bannerImageData = await allImageData.json()
-      bannerURL = bannerImageData.urls.small
-    }
-    else if (!allImageData.ok) {
-      unsplashKEY = "3ToKaeZv1WWRFpRIRC6wrqtP0uSlaL4mP1_mjCAlGGw"
-      await getImageData(photoID, unsplashKEY);
+    try {
+      if (allImageData.ok) {
+        let bannerImageData = await allImageData.json()
+        bannerURL = bannerImageData.urls.small
+        console.log(bannerURL)
+        return bannerURL
+      }
+    } catch (error) {
+      console.log({message: error})
     }
   }
 
-  await getImageData(photoID, unsplashKEY)
+
 
 
   //----------------Fetch for Ticketmaster Data---------------//
@@ -184,7 +200,7 @@ router.get(`/:id`, async (req, res) => {
   let renderData = {
     //Using the classification id to render the right category name
     classification: category,
-    categoryImg: bannerURL,
+    categoryImg: bannerImageURL,
     event: data.name,
     date: dateFormat,
     address: data._embedded.venues[0].address.line1,
