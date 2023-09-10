@@ -95,6 +95,7 @@ router.get(`/:id`, async (req,res)=> {
    
     //If we find a matching value then get the category name associated with that key
     if(foundCategory){
+      category = foundCategory.cat
     }
     else{
       console.log("Category not found")
@@ -104,8 +105,8 @@ router.get(`/:id`, async (req,res)=> {
 
     let unsplashKEY = "Ftv1Z09dCkfC4h_vSuAWUHQL1PRguPeLoejKjjc-1sQ"
     let photoID = foundCategory.imgKey
-    console.log(photoID)
     let bannerURL;
+
     let getImageData = async(photoID, unsplashKEY) =>{
       let allImageData = await fetch(`https://api.unsplash.com/photos/${photoID}/?client_id=${unsplashKEY}`, {
       method: "GET"})
@@ -147,7 +148,7 @@ router.get(`/:id`, async (req,res)=> {
   });
   
   let data = await response.json()
-  console.log(data.dates)
+
   //Using dayjs to set the format of the date to the Spelled out Month, Two-digit day, Four-digit year
   let dateFormat = dayjs(data.dates.start.localDate).format('MMMM DD, YYYY')
 
