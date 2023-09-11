@@ -2,7 +2,7 @@ const sequelize = require('../config/connection');
 const { User, Event, Classification } = require('../models');
 
 const userData = require('./userData.json');
-const eventData = require('./test-eventData.json');
+
 // let classificationData = require('./classificationData.json')
 
 const seedDatabase = async () => {
@@ -19,10 +19,6 @@ const seedDatabase = async () => {
   // const categories = await Classification.bulkCreate(classificationData, {
   //   returning: true,
   // });
-
-  const events = await Event.bulkCreate(eventData, {
-    returning: true,
-  });
 
   process.exit(0);
 };
@@ -51,14 +47,12 @@ const getClassifications = async () => {
   let response = await fetch(url, {
     method: 'GET'
   });
-  console.log(response)
 
   // data coming back from ticket master
   let data = await response.json();
   
   if (data._embedded && data._embedded.classifications) {
     let classArr = data._embedded.classifications.map(c => c.segment);
-    console.log(classArr)
     return classArr
   } else {
     return [];
