@@ -30,7 +30,7 @@ router.post('/post', async (req, res) => {
       user_id: req.session.user_id,
       ticketmaster_id: req.body.ticketmaster_id,
       ticketmaster_url: req.body.ticketmaster_url,
-      imageUrl: req.body.imageUrl,
+      image_url: req.body.image_url,
       name: req.body.name,
       start_date_time: req.body.start_date_time,
       zip_code: req.body.zip_code,
@@ -63,6 +63,7 @@ router.get('/:id', async (req,res) =>{
 
   let data = await response.json()
   let imageURL = data.images.find(image => image.ratio === "4_3").url
+  console.log(imageURL)
 
   let saveData = {
     ticketmaster_id: data.id,

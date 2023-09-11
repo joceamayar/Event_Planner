@@ -7,7 +7,6 @@ router.get('/', async (req, res) => {
   // find classifications 
   let classificationData = await Classification.findAll()
   let classifications = classificationData.map(classification => classification.get({ plain: true }))
-
   // replace handlebars with classifications
   res.render('homepage', { classifications })
 });
@@ -25,7 +24,7 @@ router.get('/profile', withAuth, async (req, res) => {
     })
 
     let user = userData.get({plain:true})
-    
+
     let eventData = await Event.findAll({
       where:{
         user_id: userData.id
@@ -33,10 +32,9 @@ router.get('/profile', withAuth, async (req, res) => {
     })
     console.log(eventData)
 
+    //  eventData.map(event=> dayjs(event.start_date_time).format('MM/DD/YYYY'))
     let events = eventData.map(event=> event.get({plain:true}))
-
     console.log(events)
-    console.log(user)
     
     res.render('profile', {
       events, 

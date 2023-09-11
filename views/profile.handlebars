@@ -56,8 +56,13 @@
         {{#each events as |event|}}
         <img
           class="object-center object-cover h-auto w-full"
-          src=`${{event.imageUrl}}`
+          {{#if event.image_url}}
+          src="`${{event.image_url}}`"
           alt="photo"
+          {{else}}
+          src=""
+          alt=""
+          {{/if}}
         />
       </div>
       <div class="text-center py-8 sm:py-6 myEventsContainerImg">

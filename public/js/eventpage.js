@@ -8,7 +8,7 @@ async function saveEvent () {
 
     let info = await getEventInfo(data_id)
     //Get what you need from event and then put it in the body for the post fetch//
-    console.log(info)
+    console.log(info.imageURL)
     let catID;
 
     let catArr = [{
@@ -49,7 +49,7 @@ async function saveEvent () {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             ticketmaster_id: info.ticketmaster_id,
-            imageURL: info.imageURL,
+            image_url: info.imageURL,
             name: info.name,
             start_date_time: info.start_date_time,
             zip_code: info.zip_code,
