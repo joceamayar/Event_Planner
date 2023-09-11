@@ -1,6 +1,6 @@
 let fetchOnPageLoad = async () => {
     try {
-        const response = await fetch('http://localhost:3001/api/classifications', {
+        const response = await fetch('/api/classifications', {
             method: 'GET'
         })
 
