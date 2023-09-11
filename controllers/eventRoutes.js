@@ -61,10 +61,11 @@ async function handleRoutes(req, res) {
       });
     }
 
-    // Render the Handlebars template with the formatted data
-    res.render('event', { classification_name, events });
+    // giving back html (This gets the data to render handlebars)
+    res.render('event', { classification_name, classification_id, zip_code, events })
   } else {
-    res.render('event', { classification_name });
+    res.render('event', { classification_name, classification_id, zip_code })
+
   }
 }
 
