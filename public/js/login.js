@@ -5,6 +5,10 @@ const loginFormHandler = async (event) => {
   const email = document.querySelector('#email-login').value.trim();
   const password = document.querySelector('#password-login').value.trim();
 
+  if(!email || !password){
+    alert("You must input an email and password to Login")
+  }
+
   if (email && password) {
     // Send a POST request to the API endpoint
     const response = await fetch('/api/users/login', {
@@ -13,15 +17,15 @@ const loginFormHandler = async (event) => {
       headers: { 'Content-Type': 'application/json' },
     });
 
-    if (response.ok) {
+    if (await response.ok) {
       // If successful, redirect the browser to the profile page
-      document.location.replace('/profile');
+      window.location.replace('/profile');
     } else {
-      alert(response.statusText);
+      alert("Incorrect Email or Password, Please Try Again");
+      window.location.reload()
     }
   }
 };
 
-document
-  .querySelector('.login-form')
-  .addEventListener('submit', loginFormHandler);
+let loginButton = document.querySelector('button');
+loginButton.addEventListener('click', loginFormHandler);
