@@ -162,10 +162,10 @@ console.log(req.params.id)
   //Using dayjs to set the format of the date to the Spelled out Month, Two-digit day, Four-digit year
   let dateFormat = dayjs(data.dates.start.localDate).format('MMMM DD, YYYY')
 
-  let renderData = {
+  let renderData = await {
     //Using the classification id to render the right category name
     classification: category,
-    categoryImg: bannerImageURL,
+    categoryImg: bannerURL,
     event: data.name,
     date: dateFormat,
     address: data._embedded.venues[0].address.line1,
@@ -184,7 +184,7 @@ console.log(req.params.id)
     venue: data._embedded.venues[0].name,
     imageURL: data.images.find(image => image.ratio === "4_3").url,
     //The ? states that if there is NO data and NO seatmap and NO static curl  in the API info for that event then set that value equal to "Check Ticketmaster for a SeatMAP >> Called a ternary operator"
-    seatMap: data?.seatmap?.staticurl ? data?.seatmap?.staticurl : "Check Ticketmaster for a SeatMap"
+    seatMap: data?.seatmap?.staticurl ? data?.seatmap?.staticurl : "Check ticketmaster for the seat Map",
   }
 
 
