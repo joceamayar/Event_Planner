@@ -1,74 +1,63 @@
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EventPulse</title>
-    <link rel="stylesheet" href="/css/jass.css" />
-    <link rel="stylesheet" href="/css/tailwind.css" />
-    <link rel="stylesheet" href="/css/style.css" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EventPulse</title>
+  <link rel="stylesheet" href="/css/jass.css" />
+  <link rel="stylesheet" href="/css/tailwind.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
 
-  <body>
-    <header
-      class="w-full mt-5 text-gray-700 bg-blue-400 border-t border-gray-100 shadow-sm body-font"
-    >
-      <div
-        class="container flex flex-col items-start justify-between p-6 mx-auto md:flex-row"
-      >
-        <a
-          class="flex items-center mb-4 font-medium text-gray-900 title-font md:mb-0"
-        >
-          <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 64 64" height="64px" id="Layer_1" version="1.1" viewBox="0 0 64 64" width="64px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M52,13.475H12c-2.2,0-4,1.8-4,4v12.481h12.301l2.688-6.877c0.307-0.785,1.094-1.299,1.914-1.271  c0.842,0.022,1.581,0.569,1.847,1.368l3.803,11.437l4.104-9.763c0.302-0.717,0.992-1.194,1.77-1.223  c0.802-0.034,1.502,0.396,1.855,1.089l2.676,5.241h2.709c1.104,0,2,0.896,2,2s-0.896,2-2,2h-3.934c-0.752,0-1.439-0.421-1.781-1.09  l-1.275-2.499l-4.499,10.7c-0.313,0.744-1.041,1.225-1.843,1.225c-0.026,0-0.052,0-0.078-0.002  c-0.833-0.031-1.558-0.576-1.821-1.367L24.7,29.689l-1.17,2.995c-0.3,0.767-1.039,1.272-1.863,1.272H8v12.568c0,2.2,1.8,4,4,4h40  c2.2,0,4-1.8,4-4v-29.05C56,15.275,54.2,13.475,52,13.475z"/></svg>
-        <nav
-          class="flex flex-wrap items-center justify-center pl-6 ml-6 text-base border-l border-gray-200 md:mr-auto"
-        >
+<body>
+  <header class="w-full mt-5 text-gray-700 bg-blue-400 border-t border-gray-100 shadow-sm body-font">
+    <div class="container flex flex-col items-start justify-between p-6 mx-auto md:flex-row">
+      <a class="flex items-center mb-4 font-medium text-gray-900 title-font md:mb-0">
+        <?xml version="1.0" ?>
+        <!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg
+          enable-background="new 0 0 64 64" height="64px" id="Layer_1" version="1.1" viewBox="0 0 64 64" width="64px"
+          xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <path
+            d="M52,13.475H12c-2.2,0-4,1.8-4,4v12.481h12.301l2.688-6.877c0.307-0.785,1.094-1.299,1.914-1.271  c0.842,0.022,1.581,0.569,1.847,1.368l3.803,11.437l4.104-9.763c0.302-0.717,0.992-1.194,1.77-1.223  c0.802-0.034,1.502,0.396,1.855,1.089l2.676,5.241h2.709c1.104,0,2,0.896,2,2s-0.896,2-2,2h-3.934c-0.752,0-1.439-0.421-1.781-1.09  l-1.275-2.499l-4.499,10.7c-0.313,0.744-1.041,1.225-1.843,1.225c-0.026,0-0.052,0-0.078-0.002  c-0.833-0.031-1.558-0.576-1.821-1.367L24.7,29.689l-1.17,2.995c-0.3,0.767-1.039,1.272-1.863,1.272H8v12.568c0,2.2,1.8,4,4,4h40  c2.2,0,4-1.8,4-4v-29.05C56,15.275,54.2,13.475,52,13.475z" />
+        </svg>
+        <nav class="flex flex-wrap items-center justify-center pl-6 ml-6 text-base border-l border-gray-200 md:mr-auto">
           <a href="/" class="mr-5 font-medium hover:text-gray-900">Home</a>
-          <a
-            href="#_"
-            class="mr-5 font-medium hover:text-gray-900"
-          >Categories</a>
+          <a href="#_" class="mr-5 font-medium hover:text-gray-900">Categories</a>
           <a href="#_" class="font-medium hover:text-gray-900">Events</a>
         </nav>
         <div class="items-center h-full">
-  {{#if logged_in}}
- <a
-            href="/profile"
-            class="mr-5 font-medium hover:text-gray-900"
-          >My Profile</a>
-          <a
-            class="px-4 py-2 text-xs font-bold text-white uppercase transition-all duration-150 bg-teal-500 rounded shadow outline-none active:bg-teal-600 hover:shadow-md focus:outline-none ease" id ="logOutButton"
-          >
-           Log Out
+          {{#if logged_in}}
+          <a href="/profile" class="mr-5 font-medium hover:text-gray-900">My Profile</a>
+          <a class="px-4 py-2 text-xs font-bold text-white uppercase transition-all duration-150 bg-teal-500 rounded shadow outline-none active:bg-teal-600 hover:shadow-md focus:outline-none ease"
+            id="logOutButton">
+            Log Out
           </a>
-{{else}}
-<a
-            href="/login"
-            class="mr-5 font-medium hover:text-gray-900"
-          >Login</a>
-          <a
-            href="/signup"
-            class="px-4 py-2 text-xs font-bold text-white uppercase transition-all duration-150 bg-teal-500 rounded shadow outline-none active:bg-teal-600 hover:shadow-md focus:outline-none ease"
-          >
+          {{else }}
+          <a href="/login" class="mr-5 font-medium hover:text-gray-900">Login</a>
+          <a href="/signup"
+            class="px-4 py-2 text-xs font-bold text-white uppercase transition-all duration-150 bg-teal-500 rounded shadow outline-none active:bg-teal-600 hover:shadow-md focus:outline-none ease">
             Sign Up
           </a>
-{{/if}}
+          {{/if}}
         </div>
-      </div>
-    </header>
-    <main>
+    </div>
+  </header>
+  <main>
 
-      {{{body}}}
+    {{{body}}}
 
-    </main>
-  </body>
+  </main>
+</body>
 
-  <script src="/js/index.js"></script>
+<script src="/js/index.js"></script>
 
 
-  {{#if logged_in}}
-  <script src="/js/logout.js"></script>
+{{#if logged_in}}
+<script src="/js/logout.js"></script>
 
-  {{/if}}
+<<<<<<< HEAD
+=======
+{{/if}}
+
 </html>
-
+>>>>>>> c704faff935b21aab0da94ec9a1a3188a07e6202
