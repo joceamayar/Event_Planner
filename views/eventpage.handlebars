@@ -1,47 +1,42 @@
-<header>
-    {{!-- Banner for the Category--}}
-    {{!-- <div class="relative bg-cover bg-center h-64" style="background-image: {{categoryImg}}"> --}}
-        <!-- Banner content goes here -->
-        <div class="absolute inset-0 flex items-center justify-center bg-opacity-75 bg-gray-900 text-white"></div>
-        <h1>{{classification}}</h1>
-    {{!-- </div> --}}
-    </div>
-</header>
-<img src='{{imageURL}}'>
-<div>
-    <h3>
-        Event Details:
-    </h3>
-    <h3>{{event}}</h3>
-    <h3>{{date}}</h3>
-    <h4>{{venue}}
-        <br>{{address}}
-        <br>{{city}},{{state}} {{zip}}
-    </h4>
-</div>
+<img id="eventPageImg" src="{{imageURL}}" />
+<div id="eventDetailContainer">
+  <h2>
+    <strong>Event Details: </strong>
+    {{event}}
+  </h2>
+  <br />
+
+  <h3><strong>Date: </strong>{{date}}</h3>
+  <h4><strong>Venue: </strong>{{venue}}
+    -
+    {{city}}
+    {{state}}
+  </h4>
 </div>
 
-<div>
-    <h5>
-        Ticket Information:
-    </h5>
-    <p>Price Ranges: {{price.min}} - {{price.max}}</p>
-    <br>
-{{#if seatMap}}
-    <img src="{{seatMap}}" alt="Seat Map">
-{{/if}}
+<div id="ticketInformationContainer">
+  <h5>
+    <strong>Ticket Information: </strong>
+  </h5>
+  <br />
+  <p>Price Ranges: {{price.min}} - {{price.max}}</p>
+  <br />
 
-    <p> For ticket availability visit Ticket Master: <a href='{{ticketmaster_url}}'>Click Here</a></p>
+  {{#if seatMap}}
+    <img src="{{seatMap}}" alt="Seat Map" />
+  {{/if}}
+  <p>
+    For ticket availability visit Ticket Master:
+    <a href="{{ticketmaster_url}}" style="color: rgb(13, 159, 221);">Click Here</a></p>
 </div>
 
 <button id="save-btn">Save Event</button>
 
-{{!-- Popup for When Event is Saved --}}
 <div id="popup" class="popup">
-    <div class="popup-content">
-        <span class="close-button" id="closeButton">&times;</span>
-        <p>Event saved</p>
-    </div>
+  <div class="popup-content">
+    <span class="close-button" id="closeButton">&times;</span>
+    <p>Event saved</p>
+  </div>
 </div>
 
 <script>

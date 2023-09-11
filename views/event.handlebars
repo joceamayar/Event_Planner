@@ -1,8 +1,12 @@
-
 <div id="categoryTitleContainer">
 <h1 id ="categoryTitle">{{classification_name}} </h1>
 </div>
 
+<div style="margin-left: 50px; margin-top 20px">
+  <p>Search by Zip Code:</p>
+  <input style="width: 100px; border: 1px solid black; margin-right: 5px" type="text" id="zip_code_input" />
+  <button id="search-zip" data-zip="{{classification_id}}" class="btn btn-blue">Search</button>
+ </div>
 <div id="gridEventContainer" style="margin: 50px">
   {{#each events}}
   <div class="eventContainer" style="margin-bottom: 30px; padding: 10px">
