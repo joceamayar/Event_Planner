@@ -1,0 +1,23 @@
+[
+  {
+    "first_name": "Jocelin",
+    "last_name": "Rodriguez",
+    "username": "JocRodr1",
+    "email": "random1@gmail.com",
+    "password": "password"
+  },
+  {
+    "first_name": "Keval",
+    "last_name": "Patel",
+    "username": "KevPate1",
+    "email": "random2@gmail.com",
+    "password": "password"
+  },
+  {
+    "first_name": "Simon",
+    "last_name": "Magidenko",
+    "username": "SimMagi1",
+    "email": "random3@gmail.com",
+    "password": "password"
+  }
+]

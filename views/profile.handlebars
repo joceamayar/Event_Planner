@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="col-auto">
+    <h1 id="welcomeMessage">Welcome, {{user.first_name}}!</h1>
+  </div>
+</div>
+
+{{! My Profile }}
+<div>
+  <div class="md:grid grid-cols-2 grid-rows-1 bg-white gap-2 p-4 rounded-xl">
+    <div class="md:col-span-1 h-48">
+      <div class="flex w-full h-full relative">
+        <img
+          src="https://res.cloudinary.com/dboafhu31/image/upload/v1625318266/imagen_2021-07-03_091743_vtbkf8.png"
+          class="w-44 h-44 m-auto"
+          alt=""
+        />
+
+      </div>
+    </div>
+    <div class="md:col-span-3 h-48 shadow-xl p-4 space-y-2 p-3">
+      <div class="flex">
+        <span
+          class="text-sm border bg-blue-50 font-bold uppercase border-2 rounded-l px-4 py-2 bg-gray-50 whitespace-no-wrap w-2/6"
+        >Name: {{user.first_name}} {{user.last_name}}</span>
+      </div>
+      <div class="flex">
+        <span
+          class="text-sm border bg-blue-50 font-bold uppercase border-2 rounded-l px-4 py-2 bg-gray-50 whitespace-no-wrap w-2/6"
+        >Email: {{user.email}}</span>
+      </div>
+      <div class="flex">
+        <span
+          class="text-sm border bg-blue-50 font-bold uppercase border-2 rounded-l px-4 py-2 bg-gray-50 whitespace-no-wrap w-2/6"
+        >username: {{user.username}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{! My Events Template }}
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
+  <div class="text-center pb-12">
+    <h1 class="font-bold text-3xl md:text-4xl lg:text-5xl font-heading text-gray-900">
+      My Events
+    </h1>
+  </div>
+  <div id="gridEventContainer" class="overflow-hidden">
+    {{#if events}}
+      {{#each events as |event|}}
+        <div class="eventContainer">
+          <img
+            class="object-center object-cover h-auto w-full"
+            {{#if event.image_url}}
+            src="{{event.image_url}}"
+            alt="photo"
+            {{else}}
+            src=""
+            alt=""
+            {{/if}}
+          />
+          <div class="text-center myEventsContainerImg">
+            <p class="text-xl text-gray-700 font-bold mb-2">
+              <a href="/event/{{event.ticketmaster_id}}?classification_id={{event.classification_id}}">{{event.name}}</a>
+            </p>
+            <p class="text-base text-gray-400 font-normal">{{event.start_date_time}}</p>
+            <p class="text-base text-gray-400 font-normal">{{ event.city }},</p>
+            <p class="text-base text-gray-400 font-normal">{{event.state}}</p>
+          </div>
+        </div>
+      {{/each}}
+    {{else}}
+      <h1>You have no events saved yet</h1>
+    {{/if}}
+  </div>
+</section>
+
+<script src="/js/profile.js"></script>

@@ -1,0 +1,43 @@
+<img id="eventPageImg" src="{{imageURL}}" />
+<div id="eventDetailContainer">
+  <h2>
+    <strong>Event Details: </strong>
+    {{event}}
+  </h2>
+  <br />
+
+  <h3><strong>Date: </strong>{{date}}</h3>
+  <h4><strong>Venue: </strong>{{venue}}
+    -
+    {{city}}
+    {{state}}
+  </h4>
+</div>
+
+<div id="ticketInformationContainer">
+  <h5>
+    <strong>Ticket Information: </strong>
+  </h5>
+  <br />
+  <p>Price Ranges: {{price.min}} - {{price.max}}</p>
+  <br />
+
+  {{#if seatMap}}
+    <img src="{{seatMap}}" alt="Seat Map" />
+  {{/if}}
+  <p>
+    For ticket availability visit Ticket Master:
+    <a href="{{ticketmaster_url}}" style="color: rgb(13, 159, 221);">Click Here</a></p>
+</div>
+
+<button id="save-btn" data-id="{{eventID}}">Save Event</button>
+
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <span class="close-button" id="closeButton">&times;</span>
+    <p>Event saved</p>
+  </div>
+</div>
+
+
+<script  src="/js/eventpage.js"></script>
