@@ -23,9 +23,9 @@ router.get('/profile', withAuth, async (req, res) => {
       },
       attributes: { exclude: ['password'] }
     })
-    console.log(userData)
+
     let user = userData.get({plain:true})
-    console.log(user)
+    
     let eventData = await Event.findAll({
       where:{
         user_id: userData.id

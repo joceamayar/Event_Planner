@@ -51,23 +51,23 @@
   >
     <div
       class="w-full bg-white rounded-lg sahdow-lg overflow-hidden flex flex-col justify-center items-center myEventsContainer"
-    >
+    >{{#if events}}
       <div>
-        {{#if events}}
+        {{#each events as |event|}}
         <img
           class="object-center object-cover h-auto w-full"
-          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80"
+          src=`${{event.imageUrl}}`
           alt="photo"
         />
       </div>
       <div class="text-center py-8 sm:py-6 myEventsContainerImg">
-        <p class="text-xl text-gray-700 font-bold mb-2">{{events.name}}</p>
-        <p class="text-base text-gray-400 font-normal">{{events.start_date_time}}</p>
+        <p class="text-xl text-gray-700 font-bold mb-2">{{event.name}}</p>
+        <p class="text-base text-gray-400 font-normal">{{event.start_date_time}}</p>
       </div>
+      {{/each}}
       {{else}}
       <h1>You have no events saved yet</h1>
       {{/if}}
-
     </div>
     
     
