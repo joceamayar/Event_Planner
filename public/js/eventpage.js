@@ -46,9 +46,10 @@ async function saveEvent () {
       }]
 
        catID = await catArr.find(category=>category.id===info.classification_id).key
-  
-    let response = await fetch('/api/events', {
+    
+    let response = await fetch('/api/events/post', {
         method: "POST",
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             ticketmaster_id: info.ticketmaster_id,
             imageURL: info.imageURL,
@@ -61,7 +62,7 @@ async function saveEvent () {
             classification_id: catID,
             createdEvent: false
         }),
-        header: 'Content-Type: application/json'
+        
     })
 
     if (response.ok) {
