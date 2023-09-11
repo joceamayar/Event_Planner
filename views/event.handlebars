@@ -5,7 +5,7 @@
 <div style="margin-left: 50px; margin-top 20px">
   <p>Search by Zip Code:</p>
   <input style="width: 100px; border: 1px solid black; margin-right: 5px" type="text" id="zip_code_input" />
-  <button id="search-zip" data-zip="{{classification_id}}" class="btn btn-blue">Search</button>
+  <button id="search-zip" data-classification="{{classification_id}}" class="btn btn-blue">Search</button>
  </div>
 <div id="gridEventContainer" style="margin: 50px">
   {{#each events}}
@@ -13,7 +13,7 @@
     <img style="max-height: 100px; margin-top: 10px; margin-bottom: 10px;" src={{imageUrl}} id="imgContainer" alt="Event image"></img>
     <div>
       <h2>{{name}}</h2>
-      <div>Date: {{start_date }} </div>
+      <div>Date: {{start_date}} </div>
     </div>
     <button class="btn btn-blue dynamicButton" data-id={{id}} data-name={{name}}>
       <a href="http://localhost:3001/eventpage/{{id}}?classification_id={{classification_id}}">
