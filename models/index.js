@@ -1,6 +1,7 @@
 const User = require('./User');
 const Event = require('./Event')
 const Classification = require('./Classification')
+const SavedEvent = require('./SavedEvent')
 
 User.belongsToMany(Event, {
   through: {
@@ -26,4 +27,4 @@ Event.belongsTo(Classification, {
 })
 
 
-module.exports = { User, Event, Classification };
+module.exports = { User, Event, Classification, SavedEvent};

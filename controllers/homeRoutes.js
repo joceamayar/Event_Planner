@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Classification, Event } = require('../models');
+const { User, Classification, Event, SavedEvent} = require('../models');
 const withAuth = require('../utils/auth');
 const dayjs = require('dayjs')
 
@@ -17,20 +17,30 @@ router.get('/', async (req, res) => {
 router.get('/profile', withAuth, async (req, res) => {
   try {
     // Find the logged in user based on the session ID
-    const eventData = await Event.findByPk({
+    let userData = await User.findOne({
       where:{
-        user_id: req.session.id
+        id: req.session.user_id
       },
-      include: [{model: User}]
+      attributes: { exclude: ['password'] }
     })
+    console.log(userData)
+    let user = userData.get({plain:true})
+    console.log(user)
+    let eventData = await Event.findAll({
+      where:{
+        user_id: userData.id
+      }
+    })
+    console.log(eventData)
 
-    let events = eventData.get({ plain: true });
+    let events = eventData.map(event=> event.get({plain:true}))
+
     console.log(events)
-    console.log(events.users)
+    console.log(user)
     
     res.render('profile', {
-      ...events,
-      
+      events, 
+      user,
       logged_in: true
     });
   } catch (err) {

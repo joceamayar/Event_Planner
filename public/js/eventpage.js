@@ -3,9 +3,6 @@ const saveButton = document.querySelector("#save-btn");
 saveButton.addEventListener("click", saveEvent);
 
 
-
-
-
 async function saveEvent () {
     let data_id = document.querySelector('button').getAttribute('data-id')
 

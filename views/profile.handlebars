@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-auto">
-    <h1 id="welcomeMessage">Welcome, {{users.first_name}}!</h1>
+    <h1 id="welcomeMessage">Welcome, {{user.first_name}}!</h1>
   </div>
 </div>
 
@@ -21,17 +21,17 @@
       <div class="flex">
         <span
           class="text-sm border bg-blue-50 font-bold uppercase border-2 rounded-l px-4 py-2 bg-gray-50 whitespace-no-wrap w-2/6"
-        >Name: {{users.first_name}} {{users.last_name}}</span>
+        >Name: {{user.first_name}} {{user.last_name}}</span>
       </div>
       <div class="flex">
         <span
           class="text-sm border bg-blue-50 font-bold uppercase border-2 rounded-l px-4 py-2 bg-gray-50 whitespace-no-wrap w-2/6"
-        >Email: {{users.email}}</span>
+        >Email: {{user.email}}</span>
       </div>
       <div class="flex">
         <span
           class="text-sm border bg-blue-50 font-bold uppercase border-2 rounded-l px-4 py-2 bg-gray-50 whitespace-no-wrap w-2/6"
-        >username: {{users.username}}</span>
+        >username: {{user.username}}</span>
       </div>
     </div>
   </div>
@@ -61,8 +61,8 @@
         />
       </div>
       <div class="text-center py-8 sm:py-6 myEventsContainerImg">
-        <p class="text-xl text-gray-700 font-bold mb-2">{{name}}</p>
-        <p class="text-base text-gray-400 font-normal">{{start_date_time}}</p>
+        <p class="text-xl text-gray-700 font-bold mb-2">{{events.name}}</p>
+        <p class="text-base text-gray-400 font-normal">{{events.start_date_time}}</p>
       </div>
       {{else}}
       <h1>You have no events saved yet</h1>
