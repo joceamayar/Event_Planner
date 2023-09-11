@@ -27,8 +27,10 @@
     </h5>
     <p>Price Ranges: {{price.min}} - {{price.max}}</p>
     <br>
-
+{{#if seatMap}}
     <img src="{{seatMap}}" alt="Seat Map">
+{{/if}}
+
     <p> For ticket availability visit Ticket Master: <a href='{{ticketmaster_url}}'>Click Here</a></p>
 </div>
 
@@ -42,5 +44,8 @@
     </div>
 </div>
 
-
+<script>
+    let savedData = {{renderData}}
+    console.log(savedData)
+</script>
 <script src="/js/eventpage.js"></script>

@@ -145,8 +145,9 @@ async function fetchTicketMaster(url){
   let data = await response.json()
   let dateFormatted = dayjs(data.dates.start.localDate).format('MMMM DD, YYYY')
   console.log(dateFormatted)
+  let imageURL = data.images.find(image => image.ratio === "4_3").url
 
-  res.render('eventpage', {
+  let renderData = {
     classification: category,
     event: data.name,
     date: dateFormatted,
@@ -164,9 +165,15 @@ async function fetchTicketMaster(url){
     },
     classification_id: data.classifications[0].segment.id,
     venue: data._embedded.venues[0].name,
-    imageURL: data.images.find(image => image.ratio === "4_3").url,
+    imageURL: imageURL,
     //The ? states that if there is NO data and NO seatmap and NO static curl  in the API info for that event then set that value equal to "Check Ticketmaster for a SeatMAP >> Called a ternary operator"
     seatMap: data?.seatmap?.staticurl ? data?.seatmap?.staticurl : "",
+  }
+
+  console.log(renderData)
+  
+  res.render('eventpage', {
+    ...renderData
 })
 
 }

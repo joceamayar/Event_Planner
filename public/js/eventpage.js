@@ -1,20 +1,9 @@
-let id = req.query.eventID
-
-let eventFetch = async ()=> {
-    //let response = await fetch(`/eventID=${id}`, {
-    //let response = await fetch(`/event?eventID=${id}&categoryId=${categoryId}`, {
-   
-    //Try get/?eventID and if it doesn't fetch then try get?eventID
-    let response = await fetch(`/event/${id}`, {
-        method: 'GET'
-    })
-    return response;
-}
-
-
+// Attach an event listener to the save button
+const saveButton = document.getElementById("save-btn");
+saveButton.addEventListener("click", saveEvent);
 
 let saveEvent = async () => {
-    let eventData = await eventFetch()
+    console.log(savedData)
     //Get what you need from event and then put it in the body for the post fetch//
     
     let response = await fetch('/api/events',{
@@ -55,11 +44,7 @@ function hidePopup() {
     popup.style.display = "none";
 }
 
-// Attach an event listener to the save button
-const saveButton = document.getElementById("save-btn");
-saveButton.addEventListener("click", () => {
-    saveEvent();
-});
+
 
 // Attach an event listener to the close button of the popup
 const closeButton = document.getElementById("closeButton");
