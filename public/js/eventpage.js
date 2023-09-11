@@ -1,23 +1,66 @@
 // Attach an event listener to the save button
-const saveButton = document.getElementById("save-btn");
+const saveButton = document.querySelector("#save-btn");
 saveButton.addEventListener("click", saveEvent);
 
-let saveEvent = async () => {
-    console.log(savedData)
+
+
+
+
+async function saveEvent () {
+    let data_id = document.querySelector('button').getAttribute('data-id')
+
+    let info = await getEventInfo(data_id)
     //Get what you need from event and then put it in the body for the post fetch//
-    
+    console.log(info)
+    let catID;
+
+    let catArr = [{
+        cat: "Miscellaneous",
+        key: "1",
+        id: "KZFzniwnSyZfZ7v7n1"
+      },
+      {
+        cat: "Sports",
+        key: "2",
+        id: "KZFzniwnSyZfZ7v7nE"
+      },
+      {
+        cat: "Music",
+        key: "3",
+        id: "KZFzniwnSyZfZ7v7nJ"
+      },
+      {
+        cat: "Arts & Theatre",
+        key: "4",
+        id: "KZFzniwnSyZfZ7v7na"
+      },
+      {
+        cat: "Undefined",
+        key: "5",
+        id: "KZFzniwnSyZfZ7v7nl"
+      },
+      {
+        cat: "Film",
+        key: "6",
+        id: "KZFzniwnSyZfZ7v7nn"
+      }]
+
+    if(info.classification_id){
+       catId = catArr.find(category=>category.id===info.classification_id).key
+    }
+
     let response = await fetch('/api/events',{
         method: "POST",
         body: {
-            ticketmaster_id: eventData.id,
-            imageURL: eventData.images.find(image => image.ratio==="4_3").url,
-            name: eventData.name,
-            start_date_time: eventData.dates.start.localDate,
-            zip_code: eventData._embedded.venues[0].postalCode.slice(0,5),
-            address: eventData._embedded.venues[0].address.line1,
-            city: eventData._embedded.venues[0].city.name,
-            state: eventData._embedded.venues[0].state.name,
-            classification_id: eventData.classifications[0].segment.id,
+            ticketmaster_id: info.ticketmaster_id,
+            imageURL: info.imageURL,
+            name: info.name,
+            start_date_time: info.start_date_time,
+            zip_code: info.zip_code,
+            address: info.address,
+            city: info.city,
+            state: info.state,
+            classification_id: catID,
         },
         header: 'Content-Type: application/json'
     })
@@ -28,6 +71,18 @@ let saveEvent = async () => {
         alert('Failed to Save Event, try again');
       }
 }
+
+
+    async function getEventInfo(id){
+        let res = await fetch(`/api/events/${id}`, {
+            method: "GET"
+        })
+
+        let eventData = await res.json()
+
+        console.log(eventData)
+        return eventData
+    }
 
 
 

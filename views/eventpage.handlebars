@@ -30,7 +30,7 @@
     <a href="{{ticketmaster_url}}" style="color: rgb(13, 159, 221);">Click Here</a></p>
 </div>
 
-<button id="save-btn">Save Event</button>
+<button id="save-btn" data-id="{{eventID}}">Save Event</button>
 
 <div id="popup" class="popup">
   <div class="popup-content">
@@ -39,8 +39,5 @@
   </div>
 </div>
 
-<script>
-    let savedData = {{renderData}}
-    console.log(savedData)
-</script>
-<script src="/js/eventpage.js"></script>
+
+<script  src="/js/eventpage.js"></script>

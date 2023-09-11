@@ -169,8 +169,6 @@ async function fetchTicketMaster(url){
     //The ? states that if there is NO data and NO seatmap and NO static curl  in the API info for that event then set that value equal to "Check Ticketmaster for a SeatMAP >> Called a ternary operator"
     seatMap: data?.seatmap?.staticurl ? data?.seatmap?.staticurl : "",
   }
-
-  console.log(renderData)
   
   res.render('eventpage', {
     ...renderData
