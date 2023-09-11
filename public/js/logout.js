@@ -1,17 +1,20 @@
-const logout = async () => {
 
+const logout = async () => {
   const response = await fetch('/logout', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
   });
 
   if (response.ok) {
-    document.location.replace('/');
+    document.location.replace('/login');
   } else {
     alert(response.statusText);
   }
-};
+};zzz
 
 let logOutButton = document.querySelector('#logOutButton')
-logOutButton.addEventListener('click', logout);
-
+if (logOutButton) {
+  logOutButton.addEventListener('click', logout);
+} else {
+  console.error('Logout button not found.');
+}
