@@ -33,7 +33,7 @@ Event.init(
             type: DataTypes.STRING,
             allowNull: true
         },
-        imageUrl: {
+        image_url: {
             type: DataTypes.STRING,
             allowNull: true
         },

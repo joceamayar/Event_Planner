@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-auto">
-    <h1 id="welcomeMessage">Welcome, {{first_name}}!</h1>
+    <h1 id="welcomeMessage">Welcome, {{user.first_name}}!</h1>
   </div>
 </div>
 
@@ -21,17 +21,17 @@
       <div class="flex">
         <span
           class="text-sm border bg-blue-50 font-bold uppercase border-2 rounded-l px-4 py-2 bg-gray-50 whitespace-no-wrap w-2/6"
-        >Name: {{first_name}} {{last_name}}</span>
+        >Name: {{user.first_name}} {{user.last_name}}</span>
       </div>
       <div class="flex">
         <span
           class="text-sm border bg-blue-50 font-bold uppercase border-2 rounded-l px-4 py-2 bg-gray-50 whitespace-no-wrap w-2/6"
-        >Email: {{email}}</span>
+        >Email: {{user.email}}</span>
       </div>
       <div class="flex">
         <span
           class="text-sm border bg-blue-50 font-bold uppercase border-2 rounded-l px-4 py-2 bg-gray-50 whitespace-no-wrap w-2/6"
-        >username: {{username}}</span>
+        >username: {{user.username}}</span>
       </div>
     </div>
   </div>
@@ -51,18 +51,28 @@
   >
     <div
       class="w-full bg-white rounded-lg sahdow-lg overflow-hidden flex flex-col justify-center items-center myEventsContainer"
-    >
+    >{{#if events}}
+        {{#each events as |event|}}
       <div>
         <img
           class="object-center object-cover h-auto w-full"
-          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80"
+          {{#if event.image_url}}
+          src="{{event.image_url}}"
           alt="photo"
+          {{else}}
+          src=""
+          alt=""
+          {{/if}}
         />
       </div>
       <div class="text-center py-8 sm:py-6 myEventsContainerImg">
-        <p class="text-xl text-gray-700 font-bold mb-2">Dany Bailey</p>
-        <p class="text-base text-gray-400 font-normal">Software Engineer</p>
+       <p class="text-xl text-gray-700 font-bold mb-2"><a href="/event/{{event.ticketmaster_id}}?classification_id={{event.classification_id}}">{{event.name}}</a></p>
+        <p class="text-base text-gray-400 font-normal">{{event.start_date_time}}</p>
       </div>
+      {{/each}}
+      {{else}}
+      <h1>You have no events saved yet</h1>
+      {{/if}}
     </div>
     
     

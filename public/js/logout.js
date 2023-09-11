@@ -1,4 +1,3 @@
-
 const logout = async () => {
   const response = await fetch('/api/users/logout', {
     method: 'POST',
@@ -6,15 +5,13 @@ const logout = async () => {
   });
 
   if (response.ok) {
-    document.location.replace('/login');
+    document.location.replace('/');
   } else {
-    alert(response.statusText);
+    alert('Unable to Logout');
   }
 };
 
 let logOutButton = document.querySelector('#logOutButton')
-if (logOutButton) {
-  logOutButton.addEventListener('click', logout);
-} else {
-  console.error('Logout button not found.');
-}
+
+logOutButton.addEventListener('click', logout);
+
