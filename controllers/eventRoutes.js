@@ -71,7 +71,7 @@ router.get('/', async (req, res) => {
 // localhost:3001/event/get?eventID=Z7r9jZ1AdqwP_&classification=..& >>>This is to include both eventID and classification ID in the parameters
 router.get(`/:id`, async (req,res)=> {
   // get route parameters (see above example route)
-  
+console.log(req.params.id)
   //Just setting the class to Miscellaneous key 
   let classification_id = req.query.classification_id
 
@@ -82,91 +82,77 @@ router.get(`/:id`, async (req,res)=> {
   let categoryArr = [
     {
       cat: "Miscellaneous",
-      key: "KZFzniwnSyZfZ7v7n1",
+      key: "1",
       imgKey: "34Xicn82lY4"
     },
     {
       cat: "Sports",
-      key: "KZFzniwnSyZfZ7v7nE",
+      key: "2",
       imgKey: "0B_S1vTY0NU"
     },
     {
       cat: "Music",
-      key: "KZFzniwnSyZfZ7v7nJ",
+      key: "3",
       imgKey: "aWXVxy8BSzc"
     },
     {
       cat: "Arts & Theatre",
-      key: "KZFzniwnSyZfZ7v7na",
+      key: "4",
       imgKey: "gIDMmhKARLk"
     },
     {
       cat: "Undefined",
-      key: "KZFzniwnSyZfZ7v7nl",
+      key: "5",
       imgKey: "yueLIYXDpzw"
     },
     {
       cat: "Film",
-      key: "KZFzniwnSyZfZ7v7nn",
+      key: "6",
       imgKey: "nLl5sJnElxY"
     }
 ]
 
     //Finding the category where the classfication_id from the query parameters is equal to the classification key
-    let foundCategory = categoryArr.find(category => category.key===classification_id);
+    let foundCategory = await categoryArr.find(category => category.key===classification_id);
     console.log(foundCategory)
    
     //If we find a matching value then get the category name associated with that key
+
+    let unsplashKEY = "3ToKaeZv1WWRFpRIRC6wrqtP0uSlaL4mP1_mjCAlGGw"
+    let bannerURL;
     if(foundCategory){
       category = foundCategory.cat
+      photoID = foundCategory.imgKey
+
+       bannerURL = await getImageData(photoID, unsplashKEY)
+      
     }
-    else{
+    else if(!foundCategory){
+      category = "Random"
+      photoID = "34Xicn82lY4"
+  
       console.log("Category not found")
+
+      bannerURL = await getImageData(photoID, unsplashKEY)
+     
     }
 
-//---------------------Fetch for Category Banner Image -----------------//
-
-    let unsplashKEY = "Ftv1Z09dCkfC4h_vSuAWUHQL1PRguPeLoejKjjc-1sQ"
-    let photoID = foundCategory.imgKey
-    let bannerURL;
-
-    let getImageData = async(photoID, unsplashKEY) =>{
-      let allImageData = await fetch(`https://api.unsplash.com/photos/${photoID}/?client_id=${unsplashKEY}`, {
-      method: "GET"})
-      //If the response is okay then get the URL's. If not then try a new KEY
-      if (allImageData.ok) {
-        let bannerImageData = await allImageData.json()
-        bannerURL = bannerImageData.urls.small
-        }
-      else if(!allImageData.ok){
-        unsplashKEY = "3ToKaeZv1WWRFpRIRC6wrqtP0uSlaL4mP1_mjCAlGGw"
-        getImageData(photoID, unsplashKEY);
-      }
-  }
-
-  getImageData(photoID, unsplashKEY)
 
 
   //----------------Fetch for Ticketmaster Data---------------//
   //let event_id = req.params.id;
-  let event_id = req.params.id;
+  
+
   //API key for ticketmaster
   const apiKey = "ooGU8uX0cAG4SM9WQPPlO5iFhuOfdLN2";
+  let event_id = req.params.id;
+    let ticketmasterURL = `https://app.ticketmaster.com/discovery/v2/events/${event_id}.json?apikey=${apiKey}`;
+    console.log(ticketmasterURL)
 
-  //Setting the url
-  let url = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}`;
-  
-  //If there is an eventID in the parameters then set the url to the one below
-  if(event_id) {
-    url = `https://app.ticketmaster.com/discovery/v2/events/${event_id}.json?apikey=${apiKey}`;
-  } 
-  else{
-    //Renders wrong route if the eventID is not included in the query parameters//
-    res.send("<h1>Wrong Route!</h1>")
-  }
+   
   
   //Fetching the data from API for the event
-  let response = await fetch(url, {
+  let response = await fetch(ticketmasterURL, {
     method: 'GET'
   });
   
@@ -200,6 +186,23 @@ router.get(`/:id`, async (req,res)=> {
       seatMap: data?.seatmap?.staticurl ?  data?.seatmap?.staticurl : "Check Ticketmaster for a SeatMap"
   })
 
+  
 })
+
+async function getImageData(photoID, unsplashKEY){
+  let bannerURL;
+  let allImageData = await fetch(`https://api.unsplash.com/photos/${photoID}/?client_id=${unsplashKEY}`, {
+  method: "GET"})
+  //If the response is okay then get the URL's. If not then try a new KEY
+  if (allImageData.ok) {
+    let bannerImageData = await allImageData.json()
+    bannerURL = bannerImageData.urls.small
+    return bannerURL
+    }
+  else if(!allImageData.ok){
+    console.log("Function not working")
+    return 
+  }
+}
 
 module.exports = router;
