@@ -77,10 +77,14 @@ router.get('/', async (req, res) => {
 
 
 
+//-------------------------Events Page Route----------------------------//
+
+
 router.get(`/:id`, async (req, res) => {
 
   let event_id = req.params.id
 
+  //Category Array with classification_id and imageKey for its background image if it will be used. 
   let categoryArr = [{
     cat: "Miscellaneous",
     key: "1",
@@ -112,22 +116,27 @@ router.get(`/:id`, async (req, res) => {
     imgKey: "nLl5sJnElxY"
   }]
 
+  //Finding category where the key matches the query classification_id value
   let foundCategory =  categoryArr.find(category =>category.key==req.query.classification_id)
+  //Setting the category to Miscellaneous by default
   let category = "Miscellaneous";
 
+  //If we find a category setting the name equal to name in the array
 if(foundCategory){
    category = foundCategory.cat
 }
 
 
 const apiKey = "ooGU8uX0cAG4SM9WQPPlO5iFhuOfdLN2";
-let ticketMasterURL = `https://app.ticketmaster.com/discovery/v2/events/${event_id}?apikey=${apiKey}`
-console.log(ticketMasterURL)
 
+//API URL for ticketmaster fetch
+let ticketMasterURL = `https://app.ticketmaster.com/discovery/v2/events/${event_id}?apikey=${apiKey}`
+
+//Calling the function to fetch the data
 fetchTicketMaster(ticketMasterURL)
 
 
-
+//Function to fetch ticketmaster data
 async function fetchTicketMaster(url){
   let response = await fetch(url, {
     method: "GET"
@@ -136,8 +145,9 @@ async function fetchTicketMaster(url){
   let data = await response.json()
   let dateFormatted = dayjs(data.dates.start.localDate).format('MMMM DD, YYYY')
   console.log(dateFormatted)
+  let imageURL = data.images.find(image => image.ratio === "4_3").url
 
-  res.render('eventpage', {
+  let renderData = {
     classification: category,
     event: data.name,
     date: dateFormatted,
@@ -155,73 +165,20 @@ async function fetchTicketMaster(url){
     },
     classification_id: data.classifications[0].segment.id,
     venue: data._embedded.venues[0].name,
-    imageURL: data.images.find(image => image.ratio === "4_3").url,
+    imageURL: imageURL,
     //The ? states that if there is NO data and NO seatmap and NO static curl  in the API info for that event then set that value equal to "Check Ticketmaster for a SeatMAP >> Called a ternary operator"
     seatMap: data?.seatmap?.staticurl ? data?.seatmap?.staticurl : "",
+  }
+  
+  res.render('eventpage', {
+    ...renderData
 })
 
 }
-
-
 })
-/
 
 
-//   res.render('eventpage', {
-//     ...renderData
-//   })
-
-// ///-------------------------Eventpage Route-----------------------------///
-// // Needed a new route for my render page. Instead of putting a bunch of if statements in the above route, this would be cleaner. 
-// // localhost:3001/event/get?eventID=Z7r9jZ1AdqwP_&classification=..& >>>This is to include both eventID and classification ID in the parameters
-// router.get(`/:id`, async (req, res) => {
-//   // get route parameters (see above example route)
-// console.log(req.params.id)
-//   //Just setting the class to Miscellaneous key 
-//   let classification_id = req.query.classification_id
-
-//   //Setting category equal to "Random"
-//   let category = "Random"
-//   //Created an array of all the classifications and their associated IDs
-//   let categoryArr = [
-//     {
-//       cat: "Miscellaneous",
-//       key: "1",
-//       imgKey: "34Xicn82lY4"
-//     },
-//     {
-//       cat: "Sports",
-//       key: "2",
-//       imgKey: "0B_S1vTY0NU"
-//     },
-//     {
-//       cat: "Music",
-//       key: "3",
-//       imgKey: "aWXVxy8BSzc"
-//     },
-//     {
-//       cat: "Arts & Theatre",
-//       key: "4",
-//       imgKey: "gIDMmhKARLk"
-//     },
-//     {
-//       cat: "Undefined",
-//       key: "5",
-//       imgKey: "yueLIYXDpzw"
-//     },
-//     {
-//       cat: "Film",
-//       key: "6",
-//       imgKey: "nLl5sJnElxY"
-//     }
-//   ]
-
-//     //Finding the category where the classfication_id from the query parameters is equal to the classification key
-//     let foundCategory = await categoryArr.find(category => category.key===classification_id);
-//     console.log(foundCategory)
-   
-//     //If we find a matching value then get the category name associated with that key
-
+// --------------------Getting background image for the category (might not be used-------------//
 //     let unsplashKEY = "3ToKaeZv1WWRFpRIRC6wrqtP0uSlaL4mP1_mjCAlGGw"
 //     let bannerURL;
 //     if(foundCategory){
@@ -241,79 +198,23 @@ async function fetchTicketMaster(url){
      
 //     }
   
-//   //---------------------Fetch for Category Banner Image -----------------//
 
 
-
-//   //----------------Fetch for Ticketmaster Data---------------//
-//   //let event_id = req.params.id;
-  
-
-//   //API key for ticketmaster
-//   const apiKey = "ooGU8uX0cAG4SM9WQPPlO5iFhuOfdLN2";
-//   let event_id = req.params.id;
-//     let ticketmasterURL = `https://app.ticketmaster.com/discovery/v2/events/${event_id}.json?apikey=${apiKey}`;
-//     console.log(ticketmasterURL)
-
-   
-  
-//   //Fetching the data from API for the event
-//   let response = await fetch(ticketmasterURL, {
-//     method: 'GET'
-//   });
-
-//   let data = await response.json()
-
-//   //Using dayjs to set the format of the date to the Spelled out Month, Two-digit day, Four-digit year
-//   let dateFormat = dayjs(data.dates.start.localDate).format('MMMM DD, YYYY')
-
-//   let renderData = await {
-//     //Using the classification id to render the right category name
-//     classification: category,
-//     categoryImg: bannerURL,
-//     event: data.name,
-//     date: dateFormat,
-//     address: data._embedded.venues[0].address.line1,
-//     city: data._embedded.venues[0].city.name,
-//     state: data._embedded.venues[0].state.name,
-//     eventID: data.id,
-//     ticketmaster_url: data.url,
-//     //Gets first 5 of postal code because it can be more than 5 digits>> For code below//
-//     zip_code: data._embedded.venues[0].postalCode.slice(0, 5),
-//     //The ? states that if there is NO data and NO priceRanges and NO min/max  in the API info for that event then set that value equal to "N/A" >> Called a ternary operator
-//     price: {
-//       min: data?.priceRanges?.min ? data?.priceRanges?.min : "N/A",
-//       max: data?.priceRanges?.max ? data?.priceRanges?.max : "N/A"
-//     },
-//     classification_id: data.classifications[0].segment.id,
-//     venue: data._embedded.venues[0].name,
-//     imageURL: data.images.find(image => image.ratio === "4_3").url,
-//     //The ? states that if there is NO data and NO seatmap and NO static curl  in the API info for that event then set that value equal to "Check Ticketmaster for a SeatMAP >> Called a ternary operator"
-//     seatMap: data?.seatmap?.staticurl ? data?.seatmap?.staticurl : "Check ticketmaster for the seat Map",
-//   }
-
-
-
-//   res.render('eventpage', {
-//     ...renderData
-//   })
-
-  
-// })
-
-async function getImageData(photoID, unsplashKEY){
-  let bannerURL;
-  let allImageData = await fetch(`https://api.unsplash.com/photos/${photoID}/?client_id=${unsplashKEY}`, {
-  method: "GET"})
-  //If the response is okay then get the URL's. If not then try a new KEY
-  if (allImageData.ok) {
-    let bannerImageData = await allImageData.json()
-    bannerURL = bannerImageData.urls.small
-    return bannerURL
-    }
-  else if(!allImageData.ok){
-    console.log("Function not working")
-    return 
+    
+      //---------------------Fetch for Category Banner Image -----------------//
+    async function getImageData(photoID, unsplashKEY){
+      let bannerURL;
+      let allImageData = await fetch(`https://api.unsplash.com/photos/${photoID}/?client_id=${unsplashKEY}`, {
+        method: "GET"})
+        //If the response is okay then get the URL's. If not then try a new KEY
+        if (allImageData.ok) {
+          let bannerImageData = await allImageData.json()
+          bannerURL = bannerImageData.urls.small
+          return bannerURL
+        }
+        else if(!allImageData.ok){
+          console.log("Function not working")
+          return 
   }
 }
 
