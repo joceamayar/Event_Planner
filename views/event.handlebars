@@ -1,15 +1,16 @@
-<h1>Events for ticket classification: {{classification_name}}</h1>
+<div id="categoryTitleContainer">
+<h1 id ="categoryTitle">{{classification_name}} </h1>
+</div>
 
-<div style="margin-left: 50px">
+<div id="gridEventContainer" style="margin: 50px">
   {{#each events}}
-  <div style="margin-bottom: 30px; padding: 10px">
-    <img style="max-height: 100px; margin-top: 10px; margin-bottom: 10px;" src={{imageUrl}} alt="Event image"></img>
+  <div class="eventContainer" style="margin-bottom: 30px; padding: 10px">
+    <img style="max-height: 100px; margin-top: 10px; margin-bottom: 10px;" src={{imageUrl}} id="imgContainer" alt="Event image"></img>
     <div>
       <h2>{{name}}</h2>
-      <div> Start Date: {{start_date}}</div>
+      <div>Date: {{start_date }} </div>
     </div>
     <button class="btn btn-blue dynamicButton" data-id={{id}} data-name={{name}}>
-      {{!--  <a href="http://localhost:3001/eventpage/{{id}}?ticketmaster_event_id={{id}}&classification_id={{classification_id}}"></a> --}}
       <a href="http://localhost:3001/eventpage/{{id}}?classification_id={{classification_id}}">
         See Details
       </a>
@@ -17,7 +18,5 @@
   </div>
   {{/each}}
 </div>
-
-
 
 <script src="/js/events.js"></script>

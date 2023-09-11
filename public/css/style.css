@@ -1,9 +1,75 @@
+:root {
+  --text-background-color: lightgrey;
+  --background-border-radius: 8px;
+  --background-box-shadow: 10px 10px 10px rgb(120, 115, 115);
+}
+
 .row {
   padding: 35px;
 }
 
 .row h1 {
   font-size: 40px;
+}
+
+.categoryContainer {
+  border: solid 2px black;
+}
+
+#gridEventContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.eventContainer {
+  border-radius: var(--background-border-radius);
+  border: solid 2px grey;
+  overflow: hidden;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.eventContainer img {
+  max-height: 100px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.eventContainer h2 {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.eventContainer div {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.eventContainer button {
+  margin-top: 10px;
+}
+
+#imgContainer {
+  border-radius: var(--background-border-radius);
+  box-shadow: none;
+  padding-left: 0px;
+  border-width: 0px;
+}
+
+#categoryTitleContainer {
+  text-align: center;
+  margin: 20px;
+}
+
+#categoryTitle {
+  font-size: 60px;
+  display: inline;
+  padding: 10px;
+  border-radius: var(--background-border-radius);
 }
 
 #welcomeMessage {
@@ -35,7 +101,7 @@
 }
 
 .signupcontainer {
-  background-color: lightgrey;
+  background-color: var(--text-background-color);
   width: 80%;
   margin: auto;
   margin-top: 60px;
@@ -49,9 +115,9 @@
 }
 
 #loginContainer {
-  background-color: lightgrey;
-  border-radius: 8px;
-  box-shadow: 10px 10px 10px rgb(120, 115, 115);
+  background-color: var(--text-background-color);
+  border-radius: var(--background-border-radius);
+  box-shadow: var(--background-box-shadow);
 }
 
 #loginText {
