@@ -17,15 +17,20 @@ router.get('/', async (req, res) => {
 router.get('/profile', withAuth, async (req, res) => {
   try {
     // Find the logged in user based on the session ID
-    const userData = await User.findByPk(req.session.user_id, {
-      attributes: { exclude: ['password'] },
-      include: [{ model: Event }],
-    });
+    const eventData = await Event.findByPk({
+      where:{
+        user_id: req.session.id
+      },
+      include: [{model: User}]
+    })
 
-    const user = userData.get({ plain: true });
-
+    let events = eventData.get({ plain: true });
+    console.log(events)
+    console.log(events.users)
+    
     res.render('profile', {
-      ...user,
+      ...events,
+      
       logged_in: true
     });
   } catch (err) {
@@ -34,14 +39,16 @@ router.get('/profile', withAuth, async (req, res) => {
   }
 });
 
-router.get('/login', (req, res) => {
+router.get('/login', async  (req, res) => {
   // If the user is already logged in, redirect the request to another route
-  if (req.session.logged_in) {
+  if (await req.session.logged_in) {
     res.redirect('/profile');
     return;
   }
+  else{
+    res.render('login')
+  }
 
-  res.render('login');
 });
 
 router.get('/logout', (req, res) => {

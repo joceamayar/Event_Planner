@@ -27,7 +27,7 @@ router.post('/post', async (req, res) => {
     //validation? 
     const savedEvent = await Event.create({
       
-      user_id: "2",
+      user_id: req.session.user_id,
       ticketmaster_id: req.body.ticketmaster_id,
       ticketmaster_url: req.body.ticketmaster_url,
       imageUrl: req.body.imageUrl,
