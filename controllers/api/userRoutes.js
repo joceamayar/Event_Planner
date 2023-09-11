@@ -60,7 +60,6 @@ router.post('/login', async (req, res) => {
 router.post('/logout', (req, res) => {
   console.log("****LOGGING OUT HERE*****")
   console.log(req.session.logged_in)
-  console.log("****LOGGING OUT HERE*****")
 
   if (req.session.logged_in) {
     req.session.destroy(() => {
