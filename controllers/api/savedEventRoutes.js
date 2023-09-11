@@ -54,7 +54,7 @@ router.get('/:id', async (req,res) =>{
 
   
 
-  const apiKey = "ooGU8uX0cAG4SM9WQPPlO5iFhuOfdLN2";
+  const apiKey = process.env.TM_APIKEY;
   let ticketmasterURL = `https://app.ticketmaster.com/discovery/v2/events/${event_id}?apikey=${apiKey}`
   console.log(ticketmasterURL)
   let response = await fetch(ticketmasterURL, {

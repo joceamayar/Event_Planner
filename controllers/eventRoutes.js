@@ -24,7 +24,7 @@ async function handleRoutes(req, res) {
   const classification_name = classification.classification_name;
 
   // get events dynamically from Ticketmaster
-  const apiKey = "ooGU8uX0cAG4SM9WQPPlO5iFhuOfdLN2";
+  const apiKey = process.env.TM_APIKEY;
   let url = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}`;
 
   // add Ticketmaster classification id stored from the database
@@ -127,7 +127,7 @@ if(foundCategory){
 }
 
 
-const apiKey = "ooGU8uX0cAG4SM9WQPPlO5iFhuOfdLN2";
+const apiKey = process.env.TM_APIKEY;
 
 //API URL for ticketmaster fetch
 let ticketMasterURL = `https://app.ticketmaster.com/discovery/v2/events/${event_id}?apikey=${apiKey}`
@@ -179,7 +179,7 @@ async function fetchTicketMaster(url){
 
 
 // --------------------Getting background image for the category (might not be used-------------//
-//     let unsplashKEY = "3ToKaeZv1WWRFpRIRC6wrqtP0uSlaL4mP1_mjCAlGGw"
+//     let unsplashKEY = process.env.US_APIKEY
 //     let bannerURL;
 //     if(foundCategory){
 //       category = foundCategory.cat
