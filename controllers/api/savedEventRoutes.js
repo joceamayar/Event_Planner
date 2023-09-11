@@ -21,11 +21,12 @@ router.get('/', withAuth, async (req, res) => {
 });
 
 // user wants to save event found in event search
-router.post('/', withAuth, async (req, res) => {
+router.post('/', async (req, res) => {
+  console.log(req.body)
   try { 
     //validation? 
     const savedEvent = await Event.create({
-      user_id: req.session.id,
+      user_id: "2",
       ticketmaster_id: req.body.ticketmaster_id,
       ticketmaster_url: req.body.ticketmaster_url,
       imageUrl: req.body.imageUrl,

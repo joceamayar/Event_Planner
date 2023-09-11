@@ -49,7 +49,7 @@ Event.init(
         // },
         
         start_date_time: {
-            type: DataTypes.DATE,
+            type: DataTypes.STRING,
             allowNull: true,
             validate: {
                 isDate: true,
@@ -88,6 +88,11 @@ Event.init(
                 key: 'id',
                 unique: false
             },
+        },
+        createdEvent: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
+            defaultValue: false
         }
     },
     {

@@ -45,13 +45,11 @@ async function saveEvent () {
         id: "KZFzniwnSyZfZ7v7nn"
       }]
 
-    if(info.classification_id){
-       catId = catArr.find(category=>category.id===info.classification_id).key
-    }
-
-    let response = await fetch('/api/events',{
+       catID = await catArr.find(category=>category.id===info.classification_id).key
+  
+    let response = await fetch('/api/events', {
         method: "POST",
-        body: {
+        body: JSON.stringify({
             ticketmaster_id: info.ticketmaster_id,
             imageURL: info.imageURL,
             name: info.name,
@@ -61,25 +59,25 @@ async function saveEvent () {
             city: info.city,
             state: info.state,
             classification_id: catID,
-        },
+            createdEvent: false
+        }),
         header: 'Content-Type: application/json'
     })
 
     if (response.ok) {
         showPopup()
+        return;
       } else {
         alert('Failed to Save Event, try again');
       }
 }
 
-
-    async function getEventInfo(id){
+async function getEventInfo(id){
         let res = await fetch(`/api/events/${id}`, {
             method: "GET"
         })
 
         let eventData = await res.json()
-
         console.log(eventData)
         return eventData
     }
