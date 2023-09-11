@@ -58,9 +58,9 @@ router.get('/', async (req, res) => {
     }
 
     // giving back html (This gets the data to render handlebars)
-    res.render('event', { classification_name, events })
+    res.render('event', { classification_name, classification_id, zip_code, events })
   } else {
-    res.render('event', { classification_name })
+    res.render('event', { classification_name, classification_id, zip_code })
   }
 });
 
