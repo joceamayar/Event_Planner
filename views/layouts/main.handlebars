@@ -7,6 +7,10 @@
   <link rel="stylesheet" href="/css/jass.css" />
   <link rel="stylesheet" href="/css/tailwind.css" />
   <link rel="stylesheet" href="/css/style.css" />
+
+  {{!-- https://www.reddit.com/r/tailwindcss/comments/l0z7in/tailwind_styles_missing_when_deployed_to_heroku/?rdt=49847 --}}
+  {{!-- workaround for tailwind purge during heroku deploy --}}
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
