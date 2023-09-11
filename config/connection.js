@@ -11,7 +11,7 @@ if (process.env.JAWSDB_URL) {
     process.env.DB_USER,
     process.env.DB_PASSWORD,
     process.env.TM_APIKEY,
-    process.env.TM_APIKEY,
+    process.env.US_APIKEY,
 
     {
       host: '127.0.0.1',
