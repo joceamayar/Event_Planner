@@ -41,10 +41,13 @@ Event.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        description: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
+
+        //----------------------Don't know if all events have descriptions or if none do----------//
+        // description: {
+        //     type: DataTypes.STRING,
+        //     allowNull: true,
+        // },
+        
         start_date_time: {
             type: DataTypes.DATE,
             allowNull: true,
@@ -52,13 +55,15 @@ Event.init(
                 isDate: true,
             }
         },
-        end_date_time: {
-            type: DataTypes.DATE,
-            allowNull: true,
-            validate: {
-                isDate: true,
-            }
-        },
+        //----------Not all have end dates so getting rid of this for now----------//
+        // end_date_time: {
+        //     type: DataTypes.DATE,
+        //     allowNull: true,
+        //     validate: {
+        //         isDate: true,
+        //     }
+        // },
+        
         zip_code: {
             type: DataTypes.STRING,
             allowNull: true,
